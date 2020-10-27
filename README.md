@@ -31,11 +31,11 @@ This Library depends on 2 famous ESP32 libraries.
 
 
 ## Getting started with arduino IDE 
-- simpleGraph.ino  :  analogRead data to Graph continously. 
-- multiGraph.ino   :  two graphs in one window sample
-- inputJson.ino    :  Importing Json String  
+- simpleGraph.ino  :  converting analogRead data into Graph lines continously. 
+- multiGraph.ino   :  two graphs in one window 
+- inputJson.ino    :  Importing Json String  into multi lines.
 - MQTTGpaphino     :  connect to MQTT broker "test.mosquitto.org" and getting Json data. depend on library [PubSubClient](https://github.com/knolleary/pubsubclient)
-- windBlows     :  graph range set Fixed.  
+- windBlows     :  setting graph range set Fixed.  default is auto-range.
 
 
 ![start](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/Startsample.png)
