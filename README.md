@@ -19,12 +19,12 @@ This Library depends on 2 famous ESP32 libraries.
 
 ##  Install 
 
-download zip file.
+### download zip file.
 
 ![download zip file](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipDwonload.png)
 
 
-import zip library.
+### import zip library.
 
 ![import zip library](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/EzipLibimport.png)
 
