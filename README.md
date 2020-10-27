@@ -26,11 +26,11 @@ import zip library.
 ![import zip library](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/EzipLibimport.png)
 
 ## Getting started with sample arduino schetch
-- simpleGraph 
-- multiGraph
-- inputJson
-- MQTTGpaph
-- windBlows
+- simpleGraph   :  adding random point to Graph continusly. 
+- multiGraph    :  two graphs in one window sample
+- inputJson     :  Importing Json String  
+- MQTTGpaph     :  connect to MQTT broker "test.mosquitto.org" and getting Json data 
+- windBlows     :  graph range set Fixed. 
 ![start](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/Startsample.png)
 
 
