@@ -1,55 +1,57 @@
-
-# Web Graph library
+# ウェブグラフライブラリ
 ![webGraphLib](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/sampleGraph.png)
-webGraphLib is a simple graphic library to make a web user interface for your Arduino projects using the  the **ESP32** . It uses web sockets and lets you create and update dynamic grapical elements on your GUI through multiple browser devices.
+webGraphLibは、**ESP32**を使ったArduinoプロジェクトのためのウェブ・ユーザー・インターフェースを作成するためのシンプルなグラフィック・ライブラリです。Webソケットを使用しており、ブラウザデバイスを介してGUI上でダイナミックなグラフィック要素を作成したり、更新したりすることができます。
 
-This Library runs on any kind  **generic ESP32 board** .
+このライブラリは一般的な**ESP32ボード**で動作します。
 ![ESP32](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/ESP32.jpg) 
 
-This Library also needs [Arduino core for the ESP32](https://github.com/espressif/arduino-esp32#installation-instructions)
-##  Dependency
-This Library depends on 2 famous ESP32 libraries.
-- [ESPAsyncWebServer](https://github.com/me-no-dev/ESPAsyncWebServer)
-- [ArdunoJson](https://github.com/bblanchon/ArduinoJson)
+このライブラリには[ESP32用Arduinoコア]も必要です(https://github.com/espressif/arduino-esp32#installation-instructions)
+## 依存関係
+このライブラリは、2つの有名なESP32ライブラリに依存しています。
+- ESPAsyncWebServer](https://github.com/me-no-dev/ESPAsyncWebServer)
+- ArdunoJson](https://github.com/bblanchon/ArduinoJson)
 
-##  Provided Functions
-- Displays such as sensor sequence data into a color graph.
-- Displays JSON data comming from MQTT Broker into a color graph.
-- The graph is constantly updated with newly incoming data.
-- Auto-scaling feature(sensing maxmum and minimum floating point data).
-- Graphics Web server functions by ESPAsyncWebServer.
-- Easily Customizing graph view as you like.
+## 提供される関数
+- センサから得た連続したデータをカラーグラフで表示します。
+- MQTT Brokerから送られてくるJSONデータをカラーグラフで表示します。
+- グラフは、新たに入力されたデータに応じて常に更新されます。
+- オートスケーリング機能(浮動小数点データの最大値と最小値を検出)
+- ESPAsyncWebServerによるグラフィックスWebサーバー機能
+- グラフ表示属性を簡単にカスタマイズできます。
 
-##  Install 
+## インストール 
 
-### download zip file.
+### ZIPファイルをダウンロードしてください。
 
-![download zip file](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipDwonload.png)
-
-
-### import zip library.
-
-![import zip library](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/EzipLibimport.png)
+![zipファイルをダウンロード](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipDwonload.png)
 
 
+### zip ライブラリをインポートします。
 
-## Getting started with arduino IDE 
-- simpleGraph.ino  :  converting analogRead data into Graph lines continously. 
-- multiGraph.ino   :  two graphs in one window 
-- inputJson.ino    :  Importing Json String  into multi lines.
-- MQTTGpaphino     :  connect to MQTT broker "test.mosquitto.org" and getting Json data. depend on library [PubSubClient](https://github.com/knolleary/pubsubclient)
-- windBlows     :  setting graph range set Fixed.  default is auto-range.
+!
+
+
+
+## arduino IDEで始める 
+- simpleGraph.ino : アナログリードデータを連続的にグラフ線に変換する．
+- multiGraph.ino : 1つのウィンドウに2つのグラフを表示する 
+- inputJson.ino : Jsonの文字列を複数行にインポートする。
+- MQTTGpaphino : MQTTブローカー "test.mosquitto.org "に接続してJsonデータを取得する。
+- windBlows : グラフの範囲を設定します。
 
 
 ![start](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/Startsample.png)
 
 
- ## using 4 objects
-    - webGraph object
-    - graph object
-    - line  object
-    - point object
+ ## 4つのオブジェクトを使用して
+    - ウェブグラフオブジェクト
+    - グラフオブジェクト
+    - かいせんたいしょう
+    - 点対象
     
-     [JSON import ArduinoJson](#json)
+     JSON import ArduinoJson](#json)
  
-###Set up Web graph
+###Webグラフの設定
+
+
+
