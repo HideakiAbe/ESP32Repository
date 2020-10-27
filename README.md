@@ -1,14 +1,17 @@
-# ESP32Repository
+# web Graph library
 ![webGraphLib](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/sampleGraph.png)
-##under construction)
-- [webGraphLib](#eESP32Repository)
-- [Functions to be provided]
-- [Easily display sensor data in a color graph.]
-- [Display JSON data from the MQTT Broker in a graph.]
-- [The graph is constantly updated with newly incoming data.]
-- [Auto-scaling feature]
-- [Graphics Web server functions]
-- [Customizing graph view.]
+webGraphLib is a simple graphic library to make a web user interface for your projects using the  the **ESP32** . It uses web sockets and lets you create and update grapical elements on your GUI through multiple browser devices.
+
+This Library runs on any kind  **ESP32** (genral ESP32 board)
+
+
+## Functions to be provided
+- Easily display sensor data in a color graph.
+- Display JSON data from the MQTT Broker in a graph.
+- The graph is constantly updated with newly incoming data.
+- Auto-scaling feature
+- Graphics Web server functions
+- Customizing graph view.
 
   - [Table of contents](##table-of-contents)
   - [Installation]
