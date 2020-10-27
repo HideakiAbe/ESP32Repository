@@ -43,6 +43,16 @@ This Library depends on 2 famous ESP32 libraries.
 ![start](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/Startsample.png)
 
 
+###　after open a sample schetch, change wifi setting to yours
+```cpp
+
+const char* ssid     = "****";
+const char* password = "****";
+
+```
+###　after upload sample schetch to esp32 board, wait for "You can now access graph to http://<ipaddress>" on serial monitor.
+
+
  ## using 4 objects
     - webGraph object
     - graph object
@@ -51,29 +61,3 @@ This Library depends on 2 famous ESP32 libraries.
     
      [JSON import ArduinoJson](#json)
  
-###Set up Web graph
-```cpp
-AsyncWebServer Web(80);
-
-void setup() {
-  Serial.begin(115200);
-  connectToWiFi();
-
-// first make a start point
-  float startX, startY = 50.0;
-  point *myStartPoint = new point(startX, startY);
-
-//2nd make  a line include the start point
-  line *myLine = new line(myStartPoint);
-
-//3rd make a new graph and add the line
-  graph *simpleXYGraph = new graph();
-  simpleXYGraph->addLine(myLine);
-
-//final step  make a webGraph include web server object and graph object
-  webGraph *mywebGraph = new webGraph(&Web, simpleXYGraph);
-
-// then start webGaph server.
-  mywebGraph->begin();
-
-```
