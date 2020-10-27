@@ -52,7 +52,7 @@ const char* password = "****";
 ```
 ### after upload sample schetch
 to esp32 board, wait for "You can now access graph to http://<ipaddress>" on serial monitor. You will be able to access tohttp://<ipaddress> through web browser.
- [windBlows](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/tornadopng.png)
+![windBlows](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/tornadopng.png)
 
 
  ## using 4 objects
