@@ -9,21 +9,20 @@ This Library depends on 2 famous ESP32 libraries.
 - [ArdunoJson](https://github.com/bblanchon/ArduinoJson)
 
 ##  Provided Functions
-- Displays such as sensor data in a color graph.
-- Displays JSON data comming from MQTT Broker in a graph.
+- Displays such as sensor sequence data in a color graph.
+- Displays JSON data comming from MQTT Broker in a color graph.
 - The graph is constantly updated with newly incoming data.
-- Auto-scaling feature(sensing maxmum and minimum data).
+- Auto-scaling feature(sensing maxmum and minimum floating point data).
 - Graphics Web server functions by ESPAsyncWebServer.
 - Easily Customizing graph view as you like.
+
 ##  Install 
 download zip file.
-![download zip](hhttps://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipDwonload.png)
+![download zip file](hhttps://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipDwonload.png)
+
 import zip library
 ![import zip library](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipLibimport.png)
-  - [input and output](#important-things-to-remember)
-    [input] json string
-    [output] <html> <svg> graph 
-  - [sample svg graph](###Set up Web graph)
+
   - [using 4 objects]()
     - [webGraph object]()
     - [graph object](#get-post-and-file-parameters)
