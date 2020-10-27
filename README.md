@@ -42,15 +42,17 @@ This Library depends on 2 famous ESP32 libraries.
 
 ![start](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/Startsample.png)
 
-
-###　after open a sample schetch, change wifi setting to yours
+### after open a sample schetch,
+please change wifi setting to yours
 ```cpp
 
 const char* ssid     = "****";
 const char* password = "****";
 
 ```
-###　after upload sample schetch to esp32 board, wait for "You can now access graph to http://<ipaddress>" on serial monitor.
+### after upload sample schetch
+to esp32 board, wait for "You can now access graph to http://<ipaddress>" on serial monitor. You will be able to access tohttp://<ipaddress> through web browser.
+ [windBlows](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/tornadopng.png)
 
 
  ## using 4 objects
