@@ -61,10 +61,10 @@ to esp32 board, wait for "You can now access graph to http://<ipaddress>" on ser
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/webGraphOject.png)
     - graph object cordinate sysyem
 
-![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/webGraphOject.png)
+![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/graphOject.png)
 
     - line  object cordinate sysyem
-![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/webGraphOject.png)
+![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/lineOject.png)
 
     - point object cordinate sysyem is same as line object cordinate sysyem
     
