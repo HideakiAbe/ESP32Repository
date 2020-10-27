@@ -4,17 +4,17 @@ webGraphLib is a simple graphic library to make a web user interface for your pr
 
 This Library runs on any kind  **ESP32** (genral ESP32 board) 
 
-This Library depends on 
-[ESPAsyncWebServer](https://github.com/me-no-dev/ESPAsyncWebServer)
-[ArdunoJson}(https://github.com/bblanchon/ArduinoJson)
+This Library depends on 2 famous ESP32 libraries.
+- [ESPAsyncWebServer](https://github.com/me-no-dev/ESPAsyncWebServer)
+- [ArdunoJson](https://github.com/bblanchon/ArduinoJson)
 
-## Functions to be provided
-- Easily display sensor data in a color graph.
-- Display JSON data from the MQTT Broker in a graph.
+##  Provided Functions
+- Displays such as sensor data in a color graph.
+- Displays JSON data comming from MQTT Broker in a graph.
 - The graph is constantly updated with newly incoming data.
-- Auto-scaling feature
-- Graphics Web server functions
-- Customizing graph view.
+- Auto-scaling feature(sensing maxmum and minimum data)
+- Graphics Web server functions by ESPAsyncWebServer.
+- Customizing graph view as you like.
 
     - [download zip  file]
   - [input and output](#important-things-to-remember)
