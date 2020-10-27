@@ -3,12 +3,12 @@
 under construction)
 - [webGraphLib](#eESP32Repository)
 -[Functions to be provided]
-　- [Easily display sensor data in a color graph.]
-　- [Display JSON data from the MQTT Broker in a graph.]
-　- [The graph is constantly updated with newly incoming data.]
-　- [Auto-scaling feature]
-　- [Graphics Web server functions]
-  - [Customizing graph view.]
+-[Easily display sensor data in a color graph.]
+-[Display JSON data from the MQTT Broker in a graph.]
+-[The graph is constantly updated with newly incoming data.]
+-[Auto-scaling feature]
+-[Graphics Web server functions]
+-[Customizing graph view.]
 
   - [Table of contents](##table-of-contents)
   - [Installation]
