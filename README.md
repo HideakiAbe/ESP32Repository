@@ -1,5 +1,5 @@
 # ESP32Repository
-![webGraphLib](https://github.com/HideakiAbe/ESP32Repository/doc/sampleGraph.png)
+![webGraphLib](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/sampleGraph.png)
 ## Table of contents
 - [webGraphLib](#eESP32Repository)
   - [Table of contents](#table-of-contents)
