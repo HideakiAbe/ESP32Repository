@@ -17,6 +17,7 @@ This Library depends on 2 famous ESP32 libraries.
 - Easily Customizing graph view as you like.
 ##  Install 
 download zip file.
+![zip]((https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipDownload.png)
 
   - [input and output](#important-things-to-remember)
     [input] json string
