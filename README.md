@@ -42,7 +42,7 @@ This Library depends on 2 famous ESP32 libraries.
 
 ![start](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/Startsample.png)
 
-### after open a sample schetch,
+### after open a sample schetch "windBlows",
 please change wifi setting to yours
 ```cpp
 
@@ -59,6 +59,7 @@ to esp32 board, wait for "You can now access graph to http://<ipaddress>" on ser
     - webGraph object cordinate sysyem
     
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/webGraphOject.png)
+webGraph object is the top level opject of this library. this retains webServr and maxum 3 graphs in this object. webGraph size is automaticaly determind by chaild graphs size and its count. Default setting xsize=460 and ysize=260. cordinate system is left upper is origin(0,0) right lower (460,260)
     - graph object cordinate sysyem
 
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/graphOject.png)
