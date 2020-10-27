@@ -10,8 +10,8 @@ This Library depends on 2 famous ESP32 libraries.
 - [ArdunoJson](https://github.com/bblanchon/ArduinoJson)
 
 ##  Provided Functions
-- Displays such as sensor sequence data in a color graph.
-- Displays JSON data comming from MQTT Broker in a color graph.
+- Displays such as sensor sequence data into a color graph.
+- Displays JSON data comming from MQTT Broker into a color graph.
 - The graph is constantly updated with newly incoming data.
 - Auto-scaling feature(sensing maxmum and minimum floating point data).
 - Graphics Web server functions by ESPAsyncWebServer.
