@@ -1,8 +1,8 @@
 # web Graph library
 ![webGraphLib](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/sampleGraph.png)
-webGraphLib is a simple graphic library to make a web user interface for your projects using the  the **ESP32** . It uses web sockets and lets you create and update grapical elements on your GUI through multiple browser devices.
+webGraphLib is a simple graphic library to make a web user interface for your Arduino projects using the  the **ESP32** . It uses web sockets and lets you create and update dynamic grapical elements on your GUI through multiple browser devices.
 
-This Library runs on any kind  **ESP32** (genral ESP32 board) 
+This Library runs on any kind  [**generic ESP32 board** ](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/esp32.jpg) 
 
 This Library depends on 2 famous ESP32 libraries.
 - [ESPAsyncWebServer](https://github.com/me-no-dev/ESPAsyncWebServer)
@@ -12,11 +12,12 @@ This Library depends on 2 famous ESP32 libraries.
 - Displays such as sensor data in a color graph.
 - Displays JSON data comming from MQTT Broker in a graph.
 - The graph is constantly updated with newly incoming data.
-- Auto-scaling feature(sensing maxmum and minimum data)
+- Auto-scaling feature(sensing maxmum and minimum data).
 - Graphics Web server functions by ESPAsyncWebServer.
-- Customizing graph view as you like.
+- Easily Customizing graph view as you like.
+##  Install 
+download zip file.
 
-    - [download zip  file]
   - [input and output](#important-things-to-remember)
     [input] json string
     [output] <html> <svg> graph 
