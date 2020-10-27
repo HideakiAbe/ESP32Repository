@@ -23,7 +23,7 @@ download zip file.
 ![download zip file](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipDwonload.png)
 
 import zip library.
-![import zip library](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipLibimport.png)
+![import zip library](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/EzipLibimport.png)
 
 
  ## using 4 objects
