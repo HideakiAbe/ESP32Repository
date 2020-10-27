@@ -12,7 +12,8 @@ void setup() {
   connectToWiFi();
 
 // first make a start point
-  float startX, startY = 50.0;
+  float startX = 50.0;
+  float startY = (float)anarogRead(34);
   point *myStartPoint = new point(startX, startY);
 
 //2nd make  a line include the start point
@@ -37,9 +38,9 @@ void setup() {
 
   Serial.println("\nYou can now access graph to http://" + WiFi.localIP().toString());
   while (1) {
-    myLine->addPoint(randomX(), randomY()); //max 255 points are retained.
+    myLine->addPoint(randomX(),analogreadY()); //max 255 points are retained.
     mywebGraph->setDirty(true); 
-    delay(100);
+    delay(1000);
     if (millis() / 10000 % 20 > 10) {
       simpleXYGraph->setBackgroundColor("darkgreen");
     } else {
@@ -61,10 +62,8 @@ void connectToWiFi() {
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
 }
-float randomY() {
-  static float y = 50;
-  float ry = ((float)random(100) + 7.0 * y) / 8.0;
-  y = ry;
+float analogreadY() {
+  float y=(float)analogRead(34);
   return y;
 }
 float randomX() {
