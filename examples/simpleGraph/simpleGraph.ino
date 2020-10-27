@@ -13,7 +13,7 @@ void setup() {
 
 // first make a start point
   float startX = 50.0;
-  float startY = (float)anarogRead(34);
+  float startY = analogreadY();
   point *myStartPoint = new point(startX, startY);
 
 //2nd make  a line include the start point
