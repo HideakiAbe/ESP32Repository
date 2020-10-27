@@ -26,11 +26,11 @@ import zip library.
 ![import zip library](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipLibimport.png)
 
 
-  - [using 4 objects]()
-    - [webGraph object]()
-    - [graph object](#get-post-and-file-parameters)
-    - [line  object](#file-upload-handling)
-    - [point object](#body-data-handling)
+ ## using 4 objects
+    - webGraph object
+    - graph object
+    - line  object
+    - point object
     
      [JSON import ArduinoJson](#json)
  
