@@ -29,8 +29,8 @@ import zip library.
 - simpleGraph   :  adding random point to Graph continusly. 
 - multiGraph    :  two graphs in one window sample
 - inputJson     :  Importing Json String  
-- MQTTGpaph     :  connect to MQTT broker "test.mosquitto.org" and getting Json data 
-- windBlows     :  graph range set Fixed. 
+- MQTTGpaph     :  connect to MQTT broker "test.mosquitto.org" and getting Json data. depend on library [PubSubClient](https://github.com/knolleary/pubsubclient)
+- windBlows     :  graph range set Fixed.  
 ![start](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/Startsample.png)
 
 
