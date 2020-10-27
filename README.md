@@ -4,7 +4,7 @@ webGraphLib is a simple graphic library to make a web user interface for your Ar
 
 This Library runs on any kind  **generic ESP32 board** .
 ![ESP32](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/ESP32.jpg) 
-
+##  Dependency
 This Library depends on 2 famous ESP32 libraries.
 - [ESPAsyncWebServer](https://github.com/me-no-dev/ESPAsyncWebServer)
 - [ArdunoJson](https://github.com/bblanchon/ArduinoJson)
