@@ -3,8 +3,10 @@
 webGraphLib is a simple graphic library to make a web user interface for your projects using the  the **ESP32** . It uses web sockets and lets you create and update grapical elements on your GUI through multiple browser devices.
 
 This Library runs on any kind  **ESP32** (genral ESP32 board) 
-[This Library depends on ](https://github.com/me-no-dev/ESPAsyncWebServer/blob/master/README.md)
 
+This Library depends on 
+[ESPAsyncWebServer](https://github.com/me-no-dev/ESPAsyncWebServer)
+[ArdunoJson}(https://github.com/bblanchon/ArduinoJson)
 
 ## Functions to be provided
 - Easily display sensor data in a color graph.
