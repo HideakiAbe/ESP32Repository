@@ -22,8 +22,11 @@ This Library depends on 2 famous ESP32 libraries.
 download zip file.
 ![download zip file](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipDwonload.png)
 
+
 import zip library.
 ![import zip library](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/EzipLibimport.png)
+
+
 
 ## Getting started with sample arduino schetch
 - simpleGraph   :  adding random point to Graph continusly. 
@@ -31,6 +34,8 @@ import zip library.
 - inputJson     :  Importing Json String  
 - MQTTGpaph     :  connect to MQTT broker "test.mosquitto.org" and getting Json data. depend on library [PubSubClient](https://github.com/knolleary/pubsubclient)
 - windBlows     :  graph range set Fixed.  
+
+
 ![start](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/Startsample.png)
 
 
