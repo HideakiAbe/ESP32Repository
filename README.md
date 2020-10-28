@@ -53,14 +53,16 @@ const char* password = "****";
 
 ```
 ### after upload sample sketch
-to esp32 board, wait for "You can now access graph to http://<ipaddress>" on serial monitor. You will be able to access tohttp://<ipaddress> through web browser.
+to esp32 board, wait for "You can now access graph to http://<ipaddress>" on serial monitor. You will be able to access http://<ipaddress> through web browser.
 ![windBlows](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/tornadopng.png)
 
 ## using 4 objects
 ### webGraph object coordinate system
     
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/webGraphOject.png)
-webGraph object is the top level object of this library. This retains one webServr pointer and default 1 or max 3 child graphs in this object. Max graphs number are defined in header file <webGraphLib.h>
+The webGraph object is the top level object of this library. This webGraph retains a webServr pointer and the default 1 or max 3 child graphs in this object. Max graphs number are defined in header file <webGraphLib.h>
+graph object retains max 5 lines. line object retains max 255 points.
+![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/objectLevel.png)
 
 const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
 
