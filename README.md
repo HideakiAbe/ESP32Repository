@@ -60,11 +60,11 @@ to esp32 board, wait for "You can now access graph to http://<ipaddress>" on ser
 ### webGraph object coordinate system
     
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/webGraphOject.png)
-webGraph object is the top level object of this library. This retains webServr 1 pointer and default 1 0r max 3 child graphs in this object. Max graphs number are defined in header file <webGraphLib.h>
+webGraph object is the top level object of this library. This retains one webServr pointer and default 1 or max 3 child graphs in this object. Max graphs number are defined in header file <webGraphLib.h>
 
 const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
 
-webGraph Xsize and Ysize are automatically determined by child graphs size and its count. Default setting xsize=460 and ysize=260. coordinate system is left upper is origin(0,0) right lower (460,260). you can observe size by use of _sizeX() and _sizeY() member functions. But webGraph size cannot be set by user directly.
+webGraph Xsize and Ysize are automatically determined by child graphs size and its count. Default setting xsize=460 and ysize=260. at the coordinate system , left upper is origin(0,0) right lower is (460,260). You can observe size by use of _sizeX() and _sizeY() member functions. But webGraph size cannot be set by user directly.
 
 ### You can use webGraph by using following  functions
 ```cpp
@@ -74,7 +74,7 @@ webGraph Xsize and Ysize are automatically determined by child graphs size and i
     ~webGraph();
     
 //Setting member functions    
-    void begin();  //start web response.
+    void begin();  //start web response, if http request is coming from browser.(tested chrome  86.0.4240.111)
     webGraph *addGraph(graph *g);      //add graph object to webGraph
     boolean setDirty(boolean dirty);   // if you changed any child object under this webGraph ,you should set true value.
     void webRefreshRate(time_t refreshSecond = 600); // inform web beowser to refresh period.
