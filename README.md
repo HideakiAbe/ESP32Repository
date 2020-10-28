@@ -66,7 +66,7 @@ const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
 
 webGraph Xsize and Ysize are automatically determined by child graphs size and its count. Default setting xsize=460 and ysize=260. at the coordinate system , left upper is origin(0,0) right lower is (460,260). You can observe size by use of _sizeX() and _sizeY() member functions. But webGraph size cannot be set by user directly.
 
-### You can use webGraph by using following  functions
+### You can use webGraph by following  functions
 ```cpp
 /// webGraph object constructor and destructor must have parameter of AsyncWebServer pointer.
     webGraph(AsyncWebServer *myServer);
