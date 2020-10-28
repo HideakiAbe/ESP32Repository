@@ -58,25 +58,25 @@ to esp32 board, wait for "You can now access graph to http://<ipaddress>" on ser
 ### webGraph object coordinate system
     
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/webGraphOject.png)
-webGraph object is the top level object of this library. This retains webServr pointer and default 1 and max 3 child graphs in this object. max graphs are defined in header file <webGraphLib.h>
+webGraph object is the top level object of this library. This retains webServr 1 pointer and default 1 0r max 3 child graphs in this object. Max graphs number are defined in header file <webGraphLib.h>
 
 const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
 
-webGraph Xsize and Ysize are automatically determined by child graphs size and its count. Default setting xsize=460 and ysize=260. coordinate system is left upper is origin(0,0) right lower (460,260).
+webGraph Xsize and Ysize are automatically determined by child graphs size and its count. Default setting xsize=460 and ysize=260. coordinate system is left upper is origin(0,0) right lower (460,260). you can observe size by use of _sizeX() and _sizeY() member functions. But webGraph size cannot be set by user directly.
 
-### You can use webGraph by using following member functions
+### You can use webGraph by using following  functions
 ```cpp
-/// constructor and destructor
+/// webGraph object constructor and destructor must have parameter of AsyncWebServer pointer.
     webGraph(AsyncWebServer *myServer);
     webGraph(AsyncWebServer *myServer, graph *g);
     ~webGraph();
     
 //Setting member functions    
-    void begin();
-    webGraph *addGraph(graph *g);
-    boolean setDirty(boolean dirty);
-    void webRefreshRate(time_t refreshSecond = 600);
-    void XvalueString(String graphName, String lineName, callback_with_arg_float myXfunc);
+    void begin();  //start web response.
+    webGraph *addGraph(graph *g);      //add graph object to webGraph
+    boolean setDirty(boolean dirty);   // if you changed any child object under this webGraph ,you should set true value.
+    void webRefreshRate(time_t refreshSecond = 600); // inform web beowser to refresh period.
+    void XvalueString(String graphName, String lineName, callback_with_arg_float myXfunc);  //resist X value display function to named graph
     void YvalueString(String graphName, String lineName, callback_with_arg_float myYfunc);
     void setBackgroundColor(String color);
     graph *importJson(String graphName, String json, String xKey, String yKey1[_MAX_LINES_IN_A_GRAPH_], uint8_t actualYKeys);
