@@ -58,7 +58,11 @@ to esp32 board, wait for "You can now access graph to http://<ipaddress>" on ser
 ### webGraph object cordinate sysyem
     
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/webGraphOject.png)
-webGraph object is the top level object of this library. This retains webServr pointer and defalut 1 and maxum 3 child graphs in this object. webGraph Xsize and Ysize are automatically determind by child graphs size and its count. Default setting xsize=460 and ysize=260. cordinate system is left upper is origin(0,0) right lower (460,260).
+webGraph object is the top level object of this library. This retains webServr pointer and defalut 1 and maxum 3 child graphs in this object. maxum graphs is defined in header file <webGraphLib.h>
+
+const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
+
+webGraph Xsize and Ysize are automatically determind by child graphs size and its count. Default setting xsize=460 and ysize=260. cordinate system is left upper is origin(0,0) right lower (460,260).
 
 ### You can use webGraph by using following member functions
 ```cpp
