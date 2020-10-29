@@ -1,6 +1,6 @@
 # Web Graph library
 ![webGraphLib](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/sampleGraph.png)
-webGraphLib is a simple graphic library to make a web user interface for your Arduino projects using the **ESP32** . It uses web sockets and lets you create and update dynamic graphical elements on your GUI through multiple browser devices.
+webGraphLib is a simple graphics library to make a web user interface for your Arduino projects using the **ESP32** . It uses web sockets and lets you create and update dynamic graphical elements on your GUI through multiple browser devices.
 
 This Library runs on any kind  **generic ESP32 board** .
 ![ESP32](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/ESP32.jpg) 
@@ -14,8 +14,8 @@ This Library depends on 2 famous ESP32 libraries.
 ##  Provided Functions
 - Displays such as sensor sequence data into a color graph.
 - Displays JSON data coming from MQTT Broker into a color graph.
-- The graph is constantly updated with newly incoming data.
-- Auto-scaling feature(sensing maximum and minimum floating point data).
+- The graph is constantly updated with new incoming data.
+- Auto-scaling feature(sensing maximum and minimum floating-point data).
 - Graphics Web server functions by ESPAsyncWebServer.
 - Easily Customizing graph view as you like.
 
@@ -34,18 +34,18 @@ This Library depends on 2 famous ESP32 libraries.
 
 
 
-## Getting started with arduino IDE 
+## Getting started with Arduino IDE 
 - simpleGraph.ino  :  converting analogRead data into Graph lines continuously. 
 - multiGraph.ino   :  two graphs in one window 
-- inputJson.ino    :  Importing Json String  into multi lines.
-- MQTTGpaphino     :  connect to MQTT broker "test.mosquitto.org" and getting Json data. depend on library [PubSubClient](https://github.com/knolleary/pubsubclient)
+- inputJson.ino    :  Importing JSON String into multi-lines.
+- MQTTGpaphino     :  connect to MQTT broker "test.mosquitto.org" and getting JSON data. depend on library [PubSubClient](https://github.com/knolleary/pubsubclient)
 - windBlows     :  setting graph range set Fixed.  default is auto-range.
 
 
 ![start](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/Startsample.png)
 
 ### after open a sample sketch "windBlows",
-please change Wi-Fi setting to yours
+please change the Wi-Fi setting to yours
 
 ```cpp
 
@@ -54,19 +54,19 @@ const char* password = "****";
 ```
 
 ### after upload sample sketch
-to esp32 board, wait for "You can now access graph to http://<ipaddress>" on serial monitor. You will be able to access http://<ipaddress> through web browser.
+to esp32 board, wait for "You can now access graph to http://<ipaddress>" on the serial monitor. You will be able to access http://<ipaddress> through a web browser.
 ![windBlows](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/tornadopng.png)
 
 ## using 4 objects
 ### webGraph object coordinate system
     
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/webGraphOject.png)
-webGraph Xsize and Ysize are automatically determined by child graphs size and its count. Default setting xsize=460 and ysize=260. at the coordinate system , left upper is origin(0,0) right lower is (460,260). You can observe size by use of _sizeX() and _sizeY() member functions. But webGraph size cannot be set by user directly.
+webGraph Xsize and Ysize are automatically determined by child graphs size and its count. Default setting xsize=460 and ysize=260. at the coordinate system , left upper is origin(0,0) right lower is (460,260). You can observe size by use of _sizeX() and _sizeY() member functions. But webGraph size cannot be set by the user directly.
 
 
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/objectLevel.png)
 
-The webGraph object is the top level object of this library. This webGraph retains a webServr pointer and the default 1 or max 3 child graphs in this object. Max graphs number are defined in header file <webGraphLib.h>
+The webGraph object is the top-level object of this library. This webGraph retains a web server pointer and the default 1 or max 3 child graphs in this object. Max graphs number are defined in header file <webGraphLib.h>
 graph object retains max 5 lines. line object retains max 255 points.
 
 ```cpp
@@ -108,8 +108,8 @@ const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
     
     graph *importJson(String graphName, String json, String xKey, String yKey1[_MAX_LINES_IN_A_GRAPH_], uint8_t actualYKeys);
     // import json string data into specified graph.
-    // xKey is one of json key, it will be used as x-value of each point.
-    // ykeys[] is array of json key. it will be used as y-value of each point.
+    // xKey is one of the JSON keys, it will be used as the x-value of each point.
+    // ykeys[] is an array of JSON key. it will be used as y-value of each point.
     // actualYKeys is number of elements of ykeys[]. 
 
 //getting member functions
@@ -126,7 +126,7 @@ const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
     
     String print();
     // print out the webGraph and its child object retaind data.
-    // It wili be usefull debug you project.
+    // It will be useful to debug your project.
 
 ```
     - graph object coordinate system
@@ -136,7 +136,7 @@ const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
     - line  object coordinate system
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/lineOject.png)
 
-    - point object coordinate system is same as line object coordinate system
+    - point object coordinate system is the same as the line object coordinate system
     
      [JSON import ArduinoJson](#json)
 
