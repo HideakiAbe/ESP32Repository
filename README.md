@@ -141,6 +141,44 @@ minimum  x and y size are both 100, maxmum size is 1000.
 graph's origin(0,0) and  webGrahp(30,30) is same position.
 if two graphs exsits in a webGraph, 2nd graph's origin(0,0) is  same postion webGraph (30, 60+ 1st ysize) .
 Each graph is aligned vertically with an interval of 30.
+```cpp
+    graph(line *toSet);
+    graph();
+    ~graph();
+    void removeAllGraphs();
+    int removeGraph(graph *toRemove);
+    
+    
+    graph *addLine(line *lineToAdd);
+    void setName(String graphTitle);
+    float setSizeX(float x);
+    float setSizeY(float y) ;
+    void setSizeXY(float x, float y);
+    boolean setDirty(boolean dirty);
+    void setBackgroundColor(String ColorNumber);
+    graph *importJson(String json, String xKey, String yKey1[_MAX_LINES_IN_A_GRAPH_], uint8_t actualKeys);
+    line *searchLineName(String nameTofind);
+    void setGraphName(String nameOfGraph);
+    void setGrid(uint8_t cellsXSplit = 24, uint8_t cellsYSplit = 8);
+    void XvalueString(String xKey, callback_with_arg_float myXfunc);
+    void YvalueString(String yKey, callback_with_arg_float myYfunc);
+    void XYvalueString(String xKey, callback_with_arg_float stdDispX, String yKeys, callback_with_arg_float stdDispTmp);
+    void setXvalueStringAngle(float angle);
+
+    
+    float getSizeX();
+    float getSizeY();
+
+    String response(int graphCount,float topPosition);
+    String print();
+    unsigned int _count();
+
+    String getGraphName();
+    unsigned int scan();
+    uint32_t memory();
+    ```
+
+
 
 graph object retains max 5 lines. 
     - line  object abd point object coordinate system
