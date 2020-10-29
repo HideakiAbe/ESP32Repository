@@ -138,7 +138,9 @@ graph cordinate system is defferent from webGraph cordinate system.
 if webGraph ratains three child graph, three graphs has each defferent cordinate systems.
 you can change the size by using three functions setSizeX(float x), setSizeY(float y) ,setSizeXY(float x, float y).
 minimum  x and y size are both 100, maxmum size is 1000.
-
+graph's origin(0,0) and  webGrahp(30,30) is same position.
+if two graphs exsits in a webGraph, 2nd graph's origin(0,0) is  same postion webGraph (30, 60+ 1st ysize) .
+Each graph is aligned vertically with an interval of 30.
 
 graph object retains max 5 lines. 
     - line  object abd point object coordinate system
