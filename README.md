@@ -46,12 +46,13 @@ This Library depends on 2 famous ESP32 libraries.
 
 ### after open a sample sketch "windBlows",
 please change Wi-Fi setting to yours
+
 ```cpp
 
 const char* ssid     = "****";
 const char* password = "****";
-
 ```
+
 ### after upload sample sketch
 to esp32 board, wait for "You can now access graph to http://<ipaddress>" on serial monitor. You will be able to access http://<ipaddress> through web browser.
 ![windBlows](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/tornadopng.png)
@@ -68,12 +69,12 @@ webGraph Xsize and Ysize are automatically determined by child graphs size and i
 The webGraph object is the top level object of this library. This webGraph retains a webServr pointer and the default 1 or max 3 child graphs in this object. Max graphs number are defined in header file <webGraphLib.h>
 graph object retains max 5 lines. line object retains max 255 points.
 
-'''cpp
+```cpp
 const unsigned int _MAX_POINTS_IN_A_LINE_ = 255;
 const unsigned int _MAX_LINES_IN_A_GRAPH_ = 5;
 const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
 
-'''
+```
 
 ### You can use webGraph by following  functions
 ```cpp
