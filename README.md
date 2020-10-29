@@ -67,7 +67,7 @@ webGraph Xsize and Ysize are automatically determined by child graphs size and i
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/objectLevel.png)
 
 The webGraph object is the top-level object of this library. This webGraph retains a web server pointer and the default 1 or max 3 child graphs in this object. Max graphs number are defined in header file <webGraphLib.h>
-graph object retains max 5 lines. line object retains max 255 points.
+
 
 ```cpp
 const unsigned int _MAX_POINTS_IN_A_LINE_ = 255;
@@ -132,7 +132,12 @@ const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
     - graph object coordinate system
 
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/graphOject.png)
+graph object has its own cordinate system, origin(0,0) is left upper cornar. right lower defalut value is (400,200).
+you can change the size by using three functions setSizeX(float x), setSizeY(float y) ,setSizeXY(float x, float y).
+minimum  xand y size are both 100, maxmum size is 1000.
 
+
+graph object retains max 5 lines. line object retains max 255 points.
     - line  object coordinate system
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/lineOject.png)
 
