@@ -27,6 +27,7 @@ template<class T> inline Print &operator <<(Print & obj, T arg) {
 String Stringf(String format, float x, float y) {
   char bufferX[512];
   if (format.length() > sizeof(bufferX) / 8) {
+	DEBUGOUT(" stop for safty reason")
     DEBUGSTOP
   }
   sprintf(bufferX, format.c_str(), x, y);
@@ -148,6 +149,15 @@ line::line(point *toSet) {
   XvalueString(0);
   YvalueString(0);
 }
+line::line(float xPoint,float yPoint){
+  point *p = new point(xPoint,yPoint);
+  if (p && this) {
+    _head = p;
+  }
+  XvalueString(0);
+  YvalueString(0);
+}
+
 line::~line() {
   if (_head) {
     _head->removeAllPoints();
@@ -167,6 +177,9 @@ unsigned int line::_count() {
 
 boolean line::setDirty(boolean dirty) {
   _dirty = dirty;
+  if(_dirty){
+	  _lineString="";
+  }
   return _dirty;
 }
 
@@ -192,6 +205,15 @@ unsigned int line::scan() {
     //DEBUGOUT(_minX)
     //DEBUGOUT(_minY)
     //BREAK
+    if(_maxX - _minX < _MINFLOATPOINT_*100.){
+		_maxX+=_MINFLOATPOINT_*100.;
+		_minX -=_MINFLOATPOINT_*100.;
+	}
+   if(_maxY - _minY < _MINFLOATPOINT_*100.){
+		_maxY += _MINFLOATPOINT_*100.;
+		_minY -= _MINFLOATPOINT_*100.;
+	}
+	
     return count;
   }
 }
@@ -316,8 +338,8 @@ String line::response(int lineIndex, int lineNumbers, graph *parent) {
     float topY = offSetY - harfY;
     float diffX = (_maxX - _minX);
     float diffY = (_maxY - _minY);
-    diffX < 1.0 ? diffX = 1.0 : diffX;
-    diffY < 1.0 ? diffY = 1.0 : diffY;
+    diffX < _MINFLOATPOINT_*100. ? diffX = _MINFLOATPOINT_*100.0 : diffX;
+    diffY < _MINFLOATPOINT_*100. ? diffY = _MINFLOATPOINT_*100.0 : diffY;
     xscale = parent->getSizeX() / diffX;
     yscale = parent->getSizeY() / lineNumbers / diffY;
     float lineScale = 2.0;
@@ -466,6 +488,17 @@ void line::setXvalueStringAngle(float angle){
 	_tA=constrain(angle,0.0,180.0);
 	_tA=_tA*PI/180.;
 }
+uint32_t line::memory(){
+	uint32_t memo= sizeof(line);
+	memo +=_head->_count() * sizeof(point);
+	memo += _lineString.length();
+    memo += _lineNameY.length();
+    memo += _lineNameX.length();
+    memo += _LineType.length();
+    memo += _lineColor.length();
+    memo += _lineWidth.length();
+    return memo;
+}
 //////
 //// graph class
 //////
@@ -548,7 +581,7 @@ graph *graph::importJson(String json, String xKey, String yKeys[_MAX_LINES_IN_A_
 graph *graph::importJson(String json, String xKey, String yKeys[_MAX_LINES_IN_A_GRAPH_], uint8_t actualKeys) {
   DynamicJsonDocument doc(1024);
   DeserializationError  error = deserializeJson(doc, json);
-  DEBUGOUT(json)
+  //DEBUGOUT(json)
   if (error) {
     Serial.print(F("deserializeJson() failed with code "));
     Serial.println(error.c_str());
@@ -557,11 +590,11 @@ graph *graph::importJson(String json, String xKey, String yKeys[_MAX_LINES_IN_A_
 
 
   float x = doc[xKey].as<float>();
-  DEBUGOUT(x)
+  //DEBUGOUT(x)
   float y[_MAX_LINES_IN_A_GRAPH_];
   for (int i = 0; i < actualKeys; i++) {
     y[i] = doc[yKeys[i]].as<float>();
-  DEBUGOUT(y[i])
+  //DEBUGOUT(y[i])
     //WATCH(yKeys[i])
     line *L = searchLineName(yKeys[i]);
     point *p = new point(x, y[i]);
@@ -588,6 +621,14 @@ graph *graph::importJson(String json, String xKey, String yKeys[_MAX_LINES_IN_A_
 #endif
 boolean graph::setDirty(boolean dirty) {
   _dirty = dirty;
+  if(_dirty){
+	  _graphString="";
+  }
+  line *L=_head;
+  while(L){
+    L->setDirty(_dirty);
+	L=L->_next;
+  }
   return _dirty;
 }
 
@@ -839,6 +880,17 @@ void graph::setXvalueStringAngle(float angle){
 	_tA=constrain(angle,0.0,180.0);
 	_tA=_tA*PI/180.;
 }
+uint32_t graph::memory(){
+  uint32_t memo=sizeof(graph);
+  line *L=_head;
+  while(L){
+	memo += L->memory();
+	L=L->_next;
+  }
+  memo += _graphString.length()+_graphName.length()+_bgColor.length();
+  return memo;
+}
+	
 //////
 //// webGraph class
 //////
@@ -950,7 +1002,7 @@ String webGraph::response(String graphName) {
       _webGraphString = wbase1;
       _webGraphString.replace("URL = http: //111.222.333.444", "URL=http://" + WiFi.localIP().toString());
       _webGraphString.replace("content=\"600", "content=\"" + String(_refreshSecond));
-      DEBUGOUT(_sizeY())
+      //DEBUGOUT(_sizeY())
       _webGraphString.replace("height=\"490.00", "height=\"" + String( _sizeY()));
       _webGraphString.replace("height=\"480.00", "height=\"" + String( _sizeY()));
       _webGraphString.replace("fill=\"#DDDDDD", "fill=\"" + _panelColor);
@@ -1001,7 +1053,7 @@ String webGraph::response() {
       _webGraphString = wbase1;
       float tx = _sizeX() + 60;
       float ty = _sizeY()  ;
-      DEBUGOUT(ty)
+      //DEBUGOUT(ty)
       _webGraphString.replace("version=\"1.1\"width = \"460.00\" height=\"490.00\">", Stringf("version=\"1.1\"width = \"%g\" height=\"%g\">", tx, ty));
       _webGraphString.replace("URL=http://111.222.333.444", "URL=http://" + WiFi.localIP().toString());
       _webGraphString.replace("content=\"600", "content=\"" + String(_refreshSecond));
@@ -1047,4 +1099,26 @@ void webGraph::YvalueString(String graphName , String lineName, callback_with_ar
     }
     G = G->_next;
   }
+}
+uint32_t webGraph::memory(){
+  uint32_t memo=sizeof(webGraph);
+  graph *g=_head;
+  while(g){
+	memo += g->memory();
+	g=g->_next;
+  }
+  memo += _webGraphString.length()+ _panelColor.length();
+  return memo;
+}
+boolean webGraph::setDirty(boolean dirty) {
+  _dirty = dirty;
+  if(_dirty){
+	  _webGraphString="";
+  }
+  graph *g=_head;
+  while(g){
+    g->setDirty(_dirty);
+	g=g->_next;
+  }
+  return _dirty;
 }

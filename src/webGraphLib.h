@@ -9,7 +9,7 @@ const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
 #define FLT_MAX 3.402823e+38
 
 #define WEBGRAPHLIB_VERSION_MAJOR 0
-#define WEBGRAPHLIB_VERSION_MINOR 82
+#define WEBGRAPHLIB_VERSION_MINOR 83
 
 
 class point;
@@ -60,6 +60,7 @@ class line   {
   public:
 
     line(point *toSet);
+    line(float xPoint,float yPoint);
     ~line();
     
     line *_next = 0;
@@ -104,6 +105,7 @@ class line   {
     float getMinY();
     String _generateGrid(int lineIndex, int lineNumbers, graph *parent);
     void setXvalueStringAngle(float angle);
+    uint32_t memory();
 };
 
 class graph  {
@@ -164,6 +166,7 @@ class graph  {
     void YvalueString(String yKey, callback_with_arg_float myYfunc);
     void XYvalueString(String xKey, callback_with_arg_float stdDispX, String yKeys, callback_with_arg_float stdDispTmp);
     void setXvalueStringAngle(float angle);
+    uint32_t memory();
 };
 
 class webGraph {
@@ -196,16 +199,15 @@ class webGraph {
     String print();
     ArRequestHandlerFunction onRequestResponse();
     void webRefreshRate(time_t refreshSecond = 600);
-    boolean setDirty(boolean dirty) {
-      _dirty = dirty;
-      return _dirty;
-    }
+    boolean setDirty(boolean dirty);
     void XvalueString(String graphName, String lineName, callback_with_arg_float myXfunc);
     void YvalueString(String graphName, String lineName, callback_with_arg_float myYfunc);
+    uint32_t memory();
 };
 
 
-const float _MAXFLOTPOINT_  = 100000000.0;
+const float _MAXFLOTPOINT_  = 3.402823e+38;
+const float _MINFLOATPOINT_ = 1.175494e-38;
 
 const String colorList[_MAX_LINES_IN_A_GRAPH_ ] = {"\"#00FF7F\"", "\"#48D1CC\"", "\"#9ACD32\"", "\"#6A5ACD\"", "\"#556B2F\""};
 
