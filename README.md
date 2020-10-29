@@ -38,7 +38,7 @@ This Library depends on 2 famous ESP32 libraries.
 - simpleGraph.ino  :  converting analogRead data into Graph lines continuously. 
 - multiGraph.ino   :  two graphs in one window 
 - inputJson.ino    :  Importing JSON String into multi-lines.
-- MQTTGpaphino     :  connect to MQTT broker "test.mosquitto.org" and getting JSON data. depend on library [PubSubClient](https://github.com/knolleary/pubsubclient)
+- MQTTGpaph.ino     :  connect to MQTT broker "test.mosquitto.org" and getting JSON data. depend on library [PubSubClient](https://github.com/knolleary/pubsubclient)
 - windBlows     :  setting graph range set Fixed.  default is auto-range.
 
 
