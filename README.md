@@ -90,6 +90,8 @@ const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
     
     webGraph *addGraph(graph *g);      
     //add graph object to webGraph
+    //If you add 4 or more graphs to webGrap, 
+    //old graphs are removed. webGraph does retain only  upto 3 graphs. 
     
     boolean setDirty(boolean dirty);   
     // if you changed any child object under this webGraph ,you should set true value.
@@ -141,28 +143,70 @@ minimum x and y size are both 100, maximum size is 1000.
 graph's origin(0,0) and  webGrahp(30,30) is same position.
 if two graphs exsits in a webGraph, 2nd graph's origin(0,0) is  same postion webGraph (30, 60+ 1st ysize) .
 Each graph is aligned vertically with an interval of 30.
+
+### You can use webGraph by following functions
+
 ```cpp
-    graph(line *toSet);
-    graph();
-    ~graph();
-    void removeAllGraphs();
-    int removeGraph(graph *toRemove);
+    //constructor and remover from link
     
+    graph(line *toSet);
+    // genarate graph include specified line.
+    
+    graph();
+    // genarate graph include no line.
+    
+    void removeAllGraphs(); 
+    //remove all graphs links to this graph ,allocated memory are returned to free area.
+    
+    int removeGraph(graph *toRemove);
+    // remove specified graph. allocated memory are returned to free area.
+    
+
     
     graph *addLine(line *lineToAdd);
-    void setName(String graphTitle);
+    // add line to this object
+    //If you add 6 or more lines to this graph, old lines are removed. graph does retain only  upto 5 lines. 
+    
+    void setName(String nameOfGraph);
+    void setGraphName(String nameOfGraph);
+    //setting the name to this graph.
+    //This name is displayed at top of this graph as title
+    //you can search this graph  by this name from upper object.  see webGraph::searchGraphName(String nameTofind);
+    
     float setSizeX(float x);
     float setSizeY(float y) ;
     void setSizeXY(float x, float y);
+    //setting graph size
+    
     void setBackgroundColor(String ColorNumber);
-    graph *importJson(String json, String xKey, String yKey1[_MAX_LINES_IN_A_GRAPH_], uint8_t actualKeys);
+    //setting background color "#000000"~"#FFFFFF" also you can use "black","white",... 
+    
+    graph *importJson(String json, String xKey, String yKeys[_MAX_LINES_IN_A_GRAPH_], uint8_t actualKeys);
+   /*
+    import json string , for exsample  { "time" : 110 ,"volt" : 3.4  ,"current" : 1.2}
+    xKey : specify  one of json' key, which  used as x value. for exsample "time"
+    yKeys : specify one or max 5 json key arrey which used as y values ,for exsample {"volt","current"}
+    actualKeys : please set number of ykeys arrey elements. in this case 2.
+    if the graph has no line which named ykeys, new lines are automatically adding, which lines are named yKeys . 
+    after adding new line, then add new point . 
+    in this case  point( 110 , 3.4 ) are added to line name of "volt", point( 100 , 1.2) are added to line name "current"
+    if the graph already has the line name of ykeys, no new lines are added. only x value and y values are added as new points.
+    Each yKey is used as each line name.  you can get line pointer by using searchLineName(ykeys[0]) .
+    xKey is also retained in eache line. 
+    In this case line name "volt" has "time" as x key, line name "current" has also "time" as x key
+   
+    */
 
-    void setGraphName(String nameOfGraph);
     void setGrid(uint8_t cellsXSplit = 24, uint8_t cellsYSplit = 8);
+    // setting graph's grid line, 
+    //"cellsXSplit" specify number of cells in the x coordinate.
+    //"cellsYSplit" specify number of cells in the y coordinate.
+    // default value of grid is (24,8)
     
     void XvalueString(String xKey, callback_with_arg_float myXfunc);
     void YvalueString(String yKey, callback_with_arg_float myYfunc);
     void XYvalueString(String xKey, callback_with_arg_float stdDispX, String yKeys, callback_with_arg_float stdDispTmp);
+    // xKey is 
     
     void setXvalueStringAngle(float angle);
 
