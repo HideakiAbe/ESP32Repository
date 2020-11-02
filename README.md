@@ -206,7 +206,9 @@ Each graph is aligned vertically with an interval of 30.
     void XvalueString(String xKey, callback_with_arg_float myXfunc);
     void YvalueString(String yKey, callback_with_arg_float myYfunc);
     void XYvalueString(String xKey, callback_with_arg_float stdDispX, String yKeys, callback_with_arg_float stdDispTmp);
-    // xKey is 
+    // xKey speciy the name of line, myfunc is generic fnunction which argument is float type, return String type
+    // for example        
+    //   String myXfunc(float x){ return String(x)+"volt";}
     
     void setXvalueStringAngle(float angle);
 
