@@ -26,7 +26,7 @@ Please consider downloading it along with.
 
 ### Download the zip file.
 
-![Download zip file](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipDwonload.png)
+![https://github.com/HideakiAbe/ESP32Repository/archive/main.zip](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipDwonload.png)
 
 
 ### Import the zip library.
