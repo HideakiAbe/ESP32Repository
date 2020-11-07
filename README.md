@@ -15,10 +15,10 @@ Please consider downloading it along with.
 ## Features Provided.
 - Displays sensor sequence data and other data in a color graph.
 - Displays JSON data sent from the MQTT Broker in a color graph.
-- The graph is always updated with new data as it comes in.'
+- The graph is always updated with new data as it comes in.
 - Auto-scaling function (detects maximum and minimum values of floating point data).
-- ESPAsyncWebServer for Graphics Web Server Functionality
-- The contents of the graph can be easily customized, !
+- ESPAsyncWebServer for Graphics Web Server Functionality.
+- The contents of the graph can be easily customized.
 
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/provideFunctionAbstruct.png)
 
