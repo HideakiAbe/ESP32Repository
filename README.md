@@ -26,7 +26,7 @@ Please consider downloading it along with.
 ![click here](https://github.com/HideakiAbe/ESP32Repository/archive/main.zip)
 ### Download the zip file.
 
-![(https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipDwonload.png)
+![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipDwonload.png)
 
 
 ### Import the zip library.
@@ -113,11 +113,12 @@ If you add four or more graphs to webGrap,webGraph will only hold up to three gr
 ### Notify the web browser of the refresh period
 It is recommended minum value would be 5.
 ```cpp
-    void webRefreshRate(time_t refreshSecond = 600). 
+int seconds=10;
+w->webRefreshRate(seconds). 
 ```
-### Set the axis display function to the specified graph. 
+### Set the axis display function to the specified graph and Line. 
 Set the X-axis display function to the specified graph.
-Set the X-axis display function to the specified graph.
+Set the Y-axis display function to the specified graph.
 ```cpp
 AsyncWebServer myServer(80);
 webGraph *w=new webGraph(&myServer);
