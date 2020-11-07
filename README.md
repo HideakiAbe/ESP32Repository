@@ -56,10 +56,16 @@ to the esp32 board and wait for the serial monitor to say "You can now access th
 
 ## Using the four objects
 ### webGraph object coordinate system description
-    
+![webGraphObject](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/webGraphOject.png)
 Xsize and Ysize are automatically determined by the size of the child graphs and their number.
-The Xsize and Ysize of webGraph are automatically determined by the size and number of child graphs. The default value is xsize=460, ysize=260. The size can be checked using the _sizeX() and _sizeY() member functions. However, the size of WebGraph cannot be set directly by the user.
+The Xsize and Ysize of webGraph are automatically determined by the size and number of child graphs. The default value is xsize=460, ysize=260. The size can be checked using the member functions.
+```cpp
+_sizeX(); _sizeY(); 
+```
+However, the size of WebGraph cannot be set directly by the user.
 Changes should be made from the child's object graph.
+
+
 
 The webGraph object is a top-level object in this library. The webGraph holds a web server pointer, and by default the object holds one or up to three child graphs. The maximum number of graphs is defined in the header file <webGraphLib.h>, like this You can make some changes, but please make sure that the value of the three multipliers does not exceed 240x4 X 3 = 2880 due to the limitation of the heap area.
 
