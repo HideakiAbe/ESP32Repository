@@ -28,6 +28,7 @@ void setup() {
   uint8_t ykeyCount = 1;
   for (int i = 0; i < 5; i++) {
     String Json = randomWindJson();
+    while(jsonWebGraph->busy());
     jsonWebGraph->importJson(graphName, Json, xKey, yKeys, ykeyCount);
   }
   optionSettingIfYouLike(jsonWebGraph);

@@ -5,7 +5,7 @@
 webGraph	KEYWORD1																				
 graph		KEYWORD1
 line		KEYWORD1
-
+point           KEYWORD1
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
@@ -13,3 +13,4 @@ line		KEYWORD1
 importJson	KEYWORD2
 addGraph	KEYWORD2
 addLine		KEYWORD2
+addPoint        KEYWORD2

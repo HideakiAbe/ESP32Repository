@@ -68,6 +68,7 @@ void setup() {
 void loop() {
   if (millis() % 1000 < 10) {
     String Json = randomJson();
+    while(jsonWebGraph->busy());
     jsonWebGraph->importJson(graphName, Json, xKey, yKeys, ykeyCount);
   }
 }

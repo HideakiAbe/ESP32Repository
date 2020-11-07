@@ -51,9 +51,9 @@ void setup() {
 
   Serial.println("\nYou can now access graph to http://" + WiFi.localIP().toString());
   while (1) {
+    while(mywebGraph->busy());
     myLine1->addPoint(randomX(), randomY()); //max 255 points are retained.
     myLine2->addPoint(randomX(), randomY()); //max 255 points are retained.
-    mywebGraph->setDirty(true);
     delay(200);
   }
 }
