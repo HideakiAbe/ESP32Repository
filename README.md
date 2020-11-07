@@ -143,7 +143,7 @@ w->YvalueString("myGraph","volt",myYfunc);
 ### changing background Color
 Set the background color (default color ="#dddddddd")
 ```cpp
-w->etBackgroundColor(String color);
+w->setBackgroundColor(String color);
 ```
  ### Import JSON String   
   
