@@ -141,7 +141,7 @@ w->YvalueString("myGraph","volt",myYfunc);
  String myYfunc(float volt){ return String(volt*1000.)+"[mV]";}
 ```
 ### changing background Color
-Set the background color (default color ="#dddddddd")
+Set the background color (default color ="#dddddd")
 ```cpp
 w->setBackgroundColor(String color);
 ```
