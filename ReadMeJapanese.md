@@ -12,7 +12,7 @@ webGraphLibは、**ESP32**を使ったArduinoプロジェクト用のWebユー�
 - ArduinoJson](https://github.com/bblanchon/ArduinoJson)
 あわせてダウンロードを検討ください。
 
-## 提供される関数
+## 提供される機能
 - センサのシーケンスデータなどをカラーグラフで表示します。
 - MQTT Brokerから送られてくるJSONデータをカラーグラフに表示します。
 - グラフは常に新しいデータが入ってくると更新されます。'
