@@ -100,8 +100,9 @@ const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
     // inform web beowser to refresh period.
     
     void XvalueString(String graphName, String lineName, callback_with_arg_float myXfunc); 
-    //resist X value display function to named graph
-    mywebGraph
+    //resist X value display function to named graph, for exsample.
+    //mywebGraph->XvalueString("myGraph","time",myXfunc);
+    //String myXfunc(float time){ return String(uint32_t(time);}
     
     void YvalueString(String graphName, String lineName, callback_with_arg_float myYfunc);
     //resist X value display function to named graph
@@ -166,7 +167,7 @@ Each graph is aligned vertically with an interval of 30.
     
     graph *addLine(line *lineToAdd);
     // add line to this object
-    //If you add 6 or more lines to this graph, old lines are removed. graph does retain only  upto 5 lines. 
+    //If you add 5 or more lines to this graph, old lines are removed. graph does retain only  upto 4 lines. 
     
     void setName(String nameOfGraph);
     void setGraphName(String nameOfGraph);
@@ -186,15 +187,15 @@ Each graph is aligned vertically with an interval of 30.
    /*
     import json string , for exsample  { "time" : 110 ,"volt" : 3.4  ,"current" : 1.2}
     xKey : specify  one of json' key, which  used as x value. for exsample "time"
-    yKeys : specify one or max 5 json key arrey which used as y values ,for exsample {"volt","current"}
+    yKeys : specify one or max 4 json key arrey which used as y values ,for exsample {"volt","current"}
     actualKeys : please set number of ykeys arrey elements. in this case 2.
     if the graph has no line which named ykeys, new lines are automatically adding, which lines are named yKeys . 
-    after adding new line, then add new point . 
+    after adding new line, then add new point from each json value . 
     in this case  point( 110 , 3.4 ) are added to line name of "volt", point( 100 , 1.2) are added to line name "current"
     if the graph already has the line name of ykeys, no new lines are added. only x value and y values are added as new points.
     Each yKey is used as each line name.  you can get line pointer by using searchLineName(ykeys[0]) .
     xKey is also retained in eache line. 
-    In this case line name "volt" has "time" as x key, line name "current" has also "time" as x key
+    In this case line name "volt" has "time" as x axis name, line name "current" has also "time" as x axis name.
    
     */
 
@@ -228,7 +229,7 @@ Each graph is aligned vertically with an interval of 30.
 
 
 
-graph object retains max 5 lines. 
+graph object retains max 4 lines. 
     - line  object abd point object coordinate system
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/lineOject.png)
 
