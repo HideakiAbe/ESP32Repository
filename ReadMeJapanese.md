@@ -6,7 +6,7 @@ webGraphLibは、**ESP32**を使ったArduinoプロジェクト用のWebユー�
 ![ESP32](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/ESP32.jpg) 
 
 このライブラリには「ESP32用Arduinoコア」も必要です(https://github.com/espressif/arduino-esp32#installation-instructions)
-## ♪# 依存関係
+### 依存関係
 このライブラリは、2つの有名なESP32ライブラリに依存しています。
 - ESPAsyncWebServer](https://github.com/me-no-dev/ESPAsyncWebServer)
 - ArduinoJson](https://github.com/bblanchon/ArduinoJson)
@@ -20,18 +20,19 @@ webGraphLibは、**ESP32**を使ったArduinoプロジェクト用のWebユー�
 - ESPAsyncWebServerによるグラフィックスWebサーバー機能
 - グラフ表示内容を簡単にカスタマイズ可能です、。
 
-!
+![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/provideFunctionAbstruct.png)
 
 ## インストール 
 
 ### ZIPファイルをダウンロードしてください。
+![click here](https://github.com/HideakiAbe/ESP32Repository/archive/main.zip)
 
 ![zipファイルをダウンロード](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipDwonload.png)
 
 
 ### zip ライブラリをインポートします。
 
-!
+![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipLibimport.png)
 
 ## Arduino IDEでサンプルを使ってみよう 
 - simpleGraph.ino : アナログリードデータを連続的にグラフ線に変換する．
@@ -46,24 +47,24 @@ webGraphLibは、**ESP32**を使ったArduinoプロジェクト用のWebユー�
 ### ここではサンプルスケッチ "windBlows "を開いた後に。
 Wi-Fi設定を自分環境あわせてに変更してください。
 
-cpp
-
+```cpp
 const char* ssid = "****".
 const char* password = "****".
 ```
 
 ### サンプルスケッチをESP32ボードにアップロードした後
-をesp32ボードに接続し、シリアルモニターに「You can now access graph to http://<ipaddress>」と表示されるのを待ちます。Webブラウザから http://<ipaddress> にアクセスできるようになります。
+esp32ボードに接続し、シリアルモニターに「You can now access graph to http://<ipaddress>」と表示されるのを待ちます。Webブラウザから http://<ipaddress> にアクセスできるようになります。
 ![windBlows](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/tornadopng.png)
 
 ## 4つのオブジェクトを使用して
 ### webGraph オブジェクト座標系の説明
     
-!
+![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/webGraphOject.png)
+
 webGraph のXsize, Ysize は子グラフのサイズとその数によって自動的に決定されます．デフォルトでは xsize=460, ysize=260 に設定されています．サイズは _sizeX() と _sizeY() のメンバ関数を使って確認することができます。ただし，WebGraph のサイズはユーザが直接設定することはできません．
 変更は子供のオブジェクトgraphから行ってください。
 
-!
+![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/objectLevel.png)
 
 webGraphオブジェクトはこのライブラリのトップレベルのオブジェクトです．このwebGraphはウェブサーバ・ポインタを保持し，デフォルトではこのオブジェクトの中に1つまたは最大3つのまでの子グラフを保持します．最大グラフ数はヘッダファイル <webGraphLib.h> でいかのように定義されています．若干の変更は可能ですが、ヒープ領域の制限から３つの掛け算の値２４０ｘ４　X　3＝２８８０を超えないように設定をお願いします。
 
