@@ -85,8 +85,8 @@ The constructor of the webGraph object must have a parameter for the AsyncWebSer
     webGraph(AsyncWebServer *myServer, graph *g); ~webGraph().
     You can use a constructor that includes a graph object that you have already created.
 ```
-##How to use the member function
-###Begin webGraph sever
+## How to use the member function
+### Begin webGraph sever
 If it is a http request from a browser, returns a http response, which will not be published to the web until begin() is executed.
  ```cpp 
  AsyncWebServer myServer(80);
@@ -94,7 +94,7 @@ If it is a http request from a browser, returns a http response, which will not 
  ....
  w->begin();
 ```
-###Add a graph object to webGraph.
+### Add a graph object to webGraph.
 If you add four or more graphs to webGrap,webGraph will only hold up to three graphs. most oldest one will be removed.
  ```cpp 
  AsyncWebServer myServer(80);
@@ -102,7 +102,7 @@ If you add four or more graphs to webGrap,webGraph will only hold up to three gr
  graph *g=new graph();
  w->addGraph(graph *g);
 ```
-###When modified the child object
+### When modified the child object
  If you modified the child object under the webGraph, set it to a true value of this function. If you set it to a true value the changes will be reflected in the graph response. 
  
  ```cpp
@@ -110,41 +110,37 @@ If you add four or more graphs to webGrap,webGraph will only hold up to three gr
   ... add or change objects to w.
   w->setDirty(true).   
   ```
-###Notify the web browser of the refresh period
+### Notify the web browser of the refresh period
 It is recommended minum value would be 5.
 ```cpp
     void webRefreshRate(time_t refreshSecond = 600). 
 ```
-###Set the axis display function to the specified graph. 
+### Set the axis display function to the specified graph. 
 Set the X-axis display function to the specified graph.
 Set the X-axis display function to the specified graph.
 ```cpp
 AsyncWebServer myServer(80);
- webGraph *w=new webGraph(&myServer);
- line *L=line(1.0, 1.0);
- L->setName("volt");
- l->setLineNameX("time");
- graph *g=new graph();
- g->addLine(L);
- g->setGraphName("myGraph");
- w->addGraph(g);
- w->XvalueString("myGraph", "time",myXfunc);
- w->YvalueString("myGraph", "volt",myYfunc);
+webGraph *w=new webGraph(&myServer);
+line *L=line(1.0, 1.0);
+L->setName("volt");
+L->setLineNameX("time");
+graph *g=new graph();
+g->addLine(L);
+g->setGraphName("myGraph");
+w->addGraph(g);
+w->XvalueString("myGraph","time",myXfunc);
+w->YvalueString("myGraph","volt",myYfunc);
  ...
  String myXfunc(float time){ return String(uint32_t(time);}
  String myYfunc(float volt){ return String(volt*1000.)+"[mV]";}
 ```
-XvalueString(String graphName, String lineName,callback_with_arg_float myXfunc). 
-　The function to be set is a function with a floating point argument and a String type return value.
-For example, the following function will be used.
-    //
-    
-    void YvalueString(String graphName, String lineName, callback_with_arg_float myYfunc).
-    //Set the display function of the Y-axis value on the named graph.
-    
-    void setBackgroundColor(String color).
-    // Set the background color (default color ="#dddddddd")
-    
-    graph *importJson(String graphName, String json, String xKey. 
+### changing background Color
+Set the background color (default color ="#dddddddd")
+```cpp
+w->etBackgroundColor(String color);
+```
+ ### Import JSON String   
+  
+  graph *importJson(String graphName, String json, String xKey. 
 
 ```
