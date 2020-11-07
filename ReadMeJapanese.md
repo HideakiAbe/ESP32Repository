@@ -113,5 +113,3 @@ cpp
     // 背景色を設定します (デフォルトカラー ="#dddddd")
     
     graph *importJson(String graphName, String json, String xKey. 
-
-www.DeepL.com/Translator（無料版）で翻訳しました。
