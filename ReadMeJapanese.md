@@ -1,9 +1,9 @@
 # ウェブグラフライブラリ
-!webGraphLib](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/sampleGraph.png)
+![webGraphLib](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/sampleGraph.png)
 webGraphLibは、**ESP32**を使ったArduinoプロジェクト用のWebユーザ・インターフェースを作成するためのシンプルなグラフィックス・ライブラリです。Webソケットを使用しており、複数のブラウザデバイスを介してGUI上でダイナミックなグラフィック要素を作成したり、更新したりすることができます。
 
-このライブラリは、一般的な**ESP32ボード**でも動作します。
-!ESP32](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/ESP32.jpg) 
+このライブラリは、一般的な**ESP32ボード**で動作します。
+![ESP32](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/ESP32.jpg) 
 
 このライブラリには「ESP32用Arduinoコア」も必要です(https://github.com/espressif/arduino-esp32#installation-instructions)
 ## ♪# 依存関係
@@ -43,7 +43,7 @@ webGraphLibは、**ESP32**を使ったArduinoプロジェクト用のWebユー�
 
 ![start](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/Startsample.png)
 
-### ここではサンプルスケッチ "windBlows "を開いた後に##。
+### ここではサンプルスケッチ "windBlows "を開いた後に。
 Wi-Fi設定を自分環境あわせてに変更してください。
 
 cpp
