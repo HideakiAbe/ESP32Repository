@@ -55,6 +55,10 @@ to the esp32 board and wait for the serial monitor to say "You can now access th
 ![windBlows](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/tornadopng.png)
 
 ## Using the four objects
+Object Hierarchy
+The four objects have a hierarchical structure, as shown in the figure.
+A parent object can have more than one child object, but the maximum number of objects it can have is fixed for each.　If you add more than the maximum number of objects, the oldest objects are deleted in the order in which they are added.
+![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/objectLevel.png)
 ### webGraph object coordinate system description
 ![webGraphObject](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/webGraphOject.png)
 Xsize and Ysize are automatically determined by the size of the child graphs and their number.
