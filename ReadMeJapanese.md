@@ -113,3 +113,66 @@ cpp
     // 背景色を設定します (デフォルトカラー ="#dddddd")
     
     graph *importJson(String graphName, String json, String xKey. 
+    
+    
+    
+    
+    ## オブジェクトの基本操作
+### オブジェクトの生成例
+```cpp
+float x=0.0;
+float y=analogRead(34);
+point *p=new point(x,y); 
+      //pointには必ずx,y座標をfloat型で指定してください。
+line *L =new line(p); 　
+      //lineは必ず１つ以上のpointを持たせてください。
+graph *g=new graph();
+AsyncWebServer　webServer;
+webGraph *w=new  webGraph (&webServer);
+     //webGraphには必ずAsyncWebServerのポインタを指定してください。
+```
+### 親オブジェクトへ子オブジェクトの追加例
+lineにpointを追加する。
+```cpp
+line *new line(p);
+point *q=new point(x,y);
+//point の使いまわしは不可、必ず新しいpoint を追加してください。
+L->addPoint(q);
+```
+graph *gにline *Lを追加する。
+```cpp
+g->addLine(L);
+```
+webGraph *wにgraph *gを追加する。
+```cpp
+ｗ->addGraph(g);
+```
+まとめますと孫から子供　そして　子供から親の順番に作成してから追加してゆく手順になります。
+
+###オブジェクトの廃棄
+規定された数以上の子オブジェクトを親に追加すると、古いオブジェクトは自動的に廃棄されます。本ライブラリでは最新で最大数の子オブジェクトが残る仕様となっています。そのような理由で常に最新のデータで更新されるので通常はオブジェクトを廃棄する必要性は低いといえます。
+あえて特定のオブジェクトの廃棄は行うには以下の関数があります。
+１、オブジェクトへのポインタで指定して廃棄するタイプ
+```cpp
+_head->removePoint(pRemove);　
+```
+pRemove: リンクから外して廃棄したいpoint
+_headは通常先頭の（古い）pointのポインタで親lineオブジェクトの_head(protected:）要素で管理されています。
+_head要素は公開されていないのでメンバー関数以外からは消しにくい設計となっています。_head以外でもかまわないですが、それよりも新しいオブジェクトだけが削除対象となります。　
+
+以下同様です。
+指定したlineの廃棄
+```cpp
+_head->removeLine(Lremove);
+```
+指定したgraphの廃棄
+```cpp
+_head->removeGraph(gRemove)
+```
+webGraphの廃棄はある意味で本ライブラリの存在を否定するのでできません。
+２、オブジェクトを一気に廃棄するタイプ
+```cpp
+_head->removeAllPoints();
+_head->removeAllLines();
+_head->removeAllGraphs();
+```
