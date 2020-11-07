@@ -1,142 +1,118 @@
-# Web Graph library
-![webGraphLib](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/sampleGraph.png)
-webGraphLib is a simple graphics library to make a web user interface for your Arduino projects using the **ESP32** . It uses web sockets and lets you create and update dynamic graphical elements on your GUI through multiple browser devices.
+# Webgraph Library
+! [webGraphLib](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/sampleGraph.png)
+webGraphLib is a simple graphics library for creating a web user interface for Arduino projects using **ESP32**, using web sockets to create a dynamic It allows you to create and update graphic elements.
 
-This Library runs on any kind  **generic ESP32 board** .
-![ESP32](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/ESP32.jpg) 
+This library works with common **ESP32 boards**.
+! [ESP32](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/ESP32.jpg) 
 
-This Library also needs [Arduino core for the ESP32](https://github.com/espressif/arduino-esp32#installation-instructions)
-##  Dependency
-This Library depends on 2 famous ESP32 libraries.
-- [ESPAsyncWebServer](https://github.com/me-no-dev/ESPAsyncWebServer)
-- [ArduinoJson](https://github.com/bblanchon/ArduinoJson)
+This library also requires the "Arduino Core for ESP32" (https://github.com/espressif/arduino-esp32#installation-instructions)
+### Dependency.
+This library relies on two well-known ESP32 libraries.
+- ESPAsyncWebServer](https://github.com/me-no-dev/ESPAsyncWebServer)
+- ArduinoJson](https://github.com/bblanchon/ArduinoJson)
+Please consider downloading it along with.
 
-##  Provided Functions
-- Displays such as sensor sequence data into a color graph.
-- Displays JSON data coming from MQTT Broker into a color graph.
-- The graph is constantly updated with new incoming data.
-- Auto-scaling feature(sensing maximum and minimum floating-point data).
-- Graphics Web server functions by ESPAsyncWebServer.
-- Easily Customizing graph view as you like.
+## Features Provided.
+- Displays sensor sequence data and other data in a color graph.
+- Displays JSON data sent from the MQTT Broker in a color graph.
+- The graph is always updated with new data as it comes in.'
+- Auto-scaling function (detects maximum and minimum values of floating point data).
+- ESPAsyncWebServer for Graphics Web Server Functionality
+- The contents of the graph can be easily customized, !
 
-![provideFunctionAbstruct](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/provideFunctionAbstruct.png)
+!
 
-##  Install 
+## Installation. 
 
-### download zip file.
+### Download the zip file.
 
-![download zip file](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipDwonload.png)
-
-
-### import zip library.
-
-![import zip library](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/EzipLibimport.png)
+! [Download zip file](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipDwonload.png)
 
 
+### Import the zip library.
 
-## Getting started with Arduino IDE 
-- simpleGraph.ino  :  converting analogRead data into Graph lines continuously. 
-- multiGraph.ino   :  two graphs in one window 
-- inputJson.ino    :  Importing JSON String into multi-lines.
-- MQTTGpaph.ino     :  connect to MQTT broker "test.mosquitto.org" and getting JSON data. depend on library [PubSubClient](https://github.com/knolleary/pubsubclient)
-- windBlows     :  setting graph range set Fixed.  default is auto-range.
+!
+
+## Let's use examples in the Arduino IDE! 
+- simpleGraph.ino : Convert analog lead data into continuous graph lines.
+- multiGraph.ino : Display two graphs in one window. 
+- inputJson.ino : Import a JSON string into multiple lines.
+- MQTTGpaph.ino : Connect to MQTT broker "test.mosquitto.org" to get JSON data.
+- windBlows : Set the range of the graph.
 
 
-![start](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/Startsample.png)
+! [start](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/Startsample.png)
 
-### after open a sample sketch "windBlows",
-please change the Wi-Fi setting to yours
+### Here is a sample sketch "windBlows" after opening it.
+Change your Wi-Fi settings to suit your environment.
 
-```cpp
+cpp.
 
-const char* ssid     = "****";
-const char* password = "****";
-```
+const char* ssid = "****".
+const char* password = "****".
+````
 
-### after upload sample sketch
-to esp32 board, wait for "You can now access graph to http://<ipaddress>" on the serial monitor. You will be able to access http://<ipaddress> through a web browser.
-![windBlows](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/tornadopng.png)
+### After uploading the sample sketches to the ESP32 board.
+to the esp32 board and wait for the serial monitor to say "You can now access the graph to http://<ipaddress>". You will be able to access http://<ipaddress> from your web browser.
+! [windBlows](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/tornadopng.png)
 
-## using 4 objects
-### webGraph object coordinate system
+## Using the four objects
+### webGraph object coordinate system description
     
-![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/webGraphOject.png)
-webGraph Xsize and Ysize are automatically determined by child graphs size and its count. Default setting xsize=460 and ysize=260. at the coordinate system , left upper is origin(0,0) right lower is (460,260). You can observe size by use of _sizeX() and _sizeY() member functions. But webGraph size cannot be set by the user directly.
+Xsize and Ysize are automatically determined by the size of the child graphs and their number.
+The Xsize and Ysize of webGraph are automatically determined by the size and number of child graphs. The default value is xsize=460, ysize=260. The size can be checked using the _sizeX() and _sizeY() member functions. However, the size of WebGraph cannot be set directly by the user.
+Changes should be made from the child's object graph.
+
+!
+
+The webGraph object is a top-level object in this library. The webGraph holds a web server pointer, and by default the object holds one or up to three child graphs. The maximum number of graphs is defined in the header file <webGraphLib.h>, like this You can make some changes, but please make sure that the value of the three multipliers does not exceed 240x4 X 3 = 2880 due to the limitation of the heap area.
 
 
-![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/objectLevel.png)
+cpp.
+const unsigned int _MAX_POTS_IN_A_LINE_ = 240.
+const unsigned int _MAX_LINES_IN_A_GRAPH_ = 4.
+const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3.
 
-The webGraph object is the top-level object of this library. This webGraph retains a web server pointer and the default 1 or max 3 child graphs in this object. Max graphs number are defined in header file <webGraphLib.h>
-graph object retains max 5 lines. line object retains max 255 points.
+````
 
-```cpp
-const unsigned int _MAX_POINTS_IN_A_LINE_ = 255;
-const unsigned int _MAX_LINES_IN_A_GRAPH_ = 5;
-const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
+### You can use webGraph with the following function.
+cpp
+The constructor of the /// webGraph object must have a parameter for the AsyncWebServer pointer.
+    webGraph(AsyncWebServer *myServer).
+    webGraph(AsyncWebServer *myServer, graph *g).
+    webGraph(AsyncWebServer *myServer, graph *g); ~webGraph().
+    You can use a constructor that includes a graph object that you have already created.
 
-```
-
-### You can use webGraph by following  functions
-```cpp
-/// webGraph object constructor must have a parameter of AsyncWebServer pointer.
-    webGraph(AsyncWebServer *myServer);
-    webGraph(AsyncWebServer *myServer, graph *g);
-    ~webGraph();
+//How to use the member function
     
-//Setting member functions    
+    void begin(). 
+    If it is a http request from a browser, // start a web response, which will not be published to the web until begin() is executed.
     
-    void begin();  
-    //start web response, if http request is coming from browser.(tested chrome  86.0.4240.111)
+    webGraph *addGraph(graph *g).      
+    //member function to add a graph object to webGraph.
+    //If you add four or more graphs to webGrap.
+    //webGraph will only hold up to three graphs.
     
-    webGraph *addGraph(graph *g);      
-    //add graph object to webGraph
-    
-    boolean setDirty(boolean dirty);   
-    // if you changed any child object under this webGraph ,you should set true value.
+    boolean setDirty(boolean dirty).   
+    // If you modified the child object under this webGraph, set it to a true value. If you set it to a true value the changes will be reflected in the graph.
 
-    void webRefreshRate(time_t refreshSecond = 600); 
-    // inform web beowser to refresh period.
+    void webRefreshRate(time_t refreshSecond = 600). 
+    // Notify the web browser of the refresh period.
     
-    void XvalueString(String graphName, String lineName, callback_with_arg_float myXfunc); 
-    //resist X value display function to named graph
+    void XvalueString(String graphName, String lineName, callback_with_arg_float myXfunc). 
+    //Set the X-value function to the specified graph.
+    //mywebGraph->XvalueString("myGraph", "time",myXfunc).
+　The function to be set is a function with a floating point argument and a String type return value.
+For example, the following function will be used.
+    //String myXfunc(float time){ return String(uint32_t(time);}.
     
-    void YvalueString(String graphName, String lineName, callback_with_arg_float myYfunc);
-    //resist X value display function to named graph
+    void YvalueString(String graphName, String lineName, callback_with_arg_float myYfunc).
+    //Set the display function of the Y-axis value on the named graph.
     
-    void setBackgroundColor(String color);
-    // setting background color (default color ="#dddddd")
+    void setBackgroundColor(String color).
+    // Set the background color (default color ="#dddddddd")
     
-    graph *importJson(String graphName, String json, String xKey, String yKey1[_MAX_LINES_IN_A_GRAPH_], uint8_t actualYKeys);
-    // import json string data into specified graph.
-    // xKey is one of the JSON keys, it will be used as the x-value of each point.
-    // ykeys[] is an array of JSON key. it will be used as y-value of each point.
-    // actualYKeys is number of elements of ykeys[]. 
+    graph *importJson(String graphName, String json, String xKey. 
 
-//getting member functions
-    float _sizeX();
-    float _sizeY();
-    // return webGraph x,y size
-    
-    graph *searchGraphName(String nameTofind);
-    // if named graph exsists in this webGraph, it will return graph pointer
-    // if "nameTofind" graph is not exists, return null pointer.
-    
-    String response();
-    // "<html><svg>" String will be return, when AsyncWebServer requests the response.
-    
-    String print();
-    // print out the webGraph and its child object retaind data.
-    // It will be useful to debug your project.
 
-```
-    - graph object coordinate system
-
-![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/graphOject.png)
-
-    - line  object coordinate system
-![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/lineOject.png)
-
-    - point object coordinate system is the same as the line object coordinate system
-    
-     [JSON import ArduinoJson](#json)
-
+Translated with www.DeepL.com/Translator (free version)
