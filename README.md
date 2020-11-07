@@ -14,7 +14,7 @@ This Library depends on 2 famous ESP32 libraries.
 ##  Provided Functions
 - Displays such as sensor sequence data into a color graph.
 - Displays JSON data coming from MQTT Broker into a color graph.
-- The graph is constantly updated with new incoming data.
+- The graph is constantly updated with new incoming data. '
 - Auto-scaling feature(sensing maximum and minimum floating-point data).
 - Graphics Web server functions by ESPAsyncWebServer.
 - Easily Customizing graph view as you like.
@@ -70,8 +70,8 @@ The webGraph object is the top-level object of this library. This webGraph retai
 
 
 ```cpp
-const unsigned int _MAX_POINTS_IN_A_LINE_ = 255;
-const unsigned int _MAX_LINES_IN_A_GRAPH_ = 5;
+const unsigned int _MAX_POINTS_IN_A_LINE_ = 240;
+const unsigned int _MAX_LINES_IN_A_GRAPH_ = 4;
 const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
 
 ```
@@ -91,7 +91,7 @@ const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
     webGraph *addGraph(graph *g);      
     //add graph object to webGraph
     //If you add 4 or more graphs to webGrap, 
-    //old graphs are removed. webGraph does retain only  upto 3 graphs. 
+    //old graphs and its lines and points are removed. webGraph does retain only  upto 3 graphs. 
     
     boolean setDirty(boolean dirty);   
     // if you changed any child object under this webGraph ,you should set true value.
@@ -101,6 +101,7 @@ const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
     
     void XvalueString(String graphName, String lineName, callback_with_arg_float myXfunc); 
     //resist X value display function to named graph
+    mywebGraph
     
     void YvalueString(String graphName, String lineName, callback_with_arg_float myYfunc);
     //resist X value display function to named graph
