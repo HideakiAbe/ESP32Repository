@@ -40,16 +40,15 @@ Please consider downloading it along with.
 - windBlows : Set the range of the graph.
 
 
-! [start](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/Startsample.png)
+![start](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/Startsample.png)
 
 ### Here is a sample sketch "windBlows" after opening it.
 Change your Wi-Fi settings to suit your environment.
 
-cpp.
-
+```cpp
 const char* ssid = "****".
 const char* password = "****".
-````
+```
 
 ### After uploading the sample sketches to the ESP32 board.
 to the esp32 board and wait for the serial monitor to say "You can now access the graph to http://<ipaddress>". You will be able to access http://<ipaddress> from your web browser.
@@ -65,15 +64,16 @@ Changes should be made from the child's object graph.
 The webGraph object is a top-level object in this library. The webGraph holds a web server pointer, and by default the object holds one or up to three child graphs. The maximum number of graphs is defined in the header file <webGraphLib.h>, like this You can make some changes, but please make sure that the value of the three multipliers does not exceed 240x4 X 3 = 2880 due to the limitation of the heap area.
 
 
-cpp.
+```cpp
 const unsigned int _MAX_POTS_IN_A_LINE_ = 240.
 const unsigned int _MAX_LINES_IN_A_GRAPH_ = 4.
 const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3.
-
+```
 
 ### You can use webGraph with the following function.
-```cpp
+
 The constructor of the /// webGraph object must have a parameter for the AsyncWebServer pointer.
+```cpp
     webGraph(AsyncWebServer *myServer).
     webGraph(AsyncWebServer *myServer, graph *g).
     webGraph(AsyncWebServer *myServer, graph *g); ~webGraph().
@@ -82,7 +82,8 @@ The constructor of the /// webGraph object must have a parameter for the AsyncWe
 //How to use the member function
     
     void begin(). 
-    If it is a http request from a browser, // start a web response, which will not be published to the web until begin() is executed.
+    //If it is a http request from a browser, 
+    //returns a http response, which will not be published to the web until begin() is executed.
     
     webGraph *addGraph(graph *g).      
     //member function to add a graph object to webGraph.
@@ -110,5 +111,4 @@ For example, the following function will be used.
     
     graph *importJson(String graphName, String json, String xKey. 
 
-
-Translated with www.DeepL.com/Translator (free version)
+```
