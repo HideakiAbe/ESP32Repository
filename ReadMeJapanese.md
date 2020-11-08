@@ -170,10 +170,49 @@ _head->removeLine(Lremove);
 ```cpp
 _head->removeGraph(gRemove)
 ```
-webGraphの廃棄はある意味で本ライブラリの存在を否定するのでできません。
+
 ２、オブジェクトを一気に廃棄するタイプ
 ```cpp
 _head->removeAllPoints();
 _head->removeAllLines();
 _head->removeAllGraphs();
+```
+webGraphの廃棄関数はありません。
+## オブジェクトの名前づけ
+graphオブジェクトとlineオブジェクトには名前をつけることができます。lineオブジェクト名前はlineオブジェクトのｙ軸の名前と兼用しています。lineオブジェクトのX軸にも名前も持たせることができます。　ユニークな名前を持たせることで特定のオブジェクトへのアクセスが可能になります。pointオブジェクトやwebGraphオブジェクトには名前をつけることはできません。
+```cpp
+//lineオブジェクトには名前づけと名前の取得
+line *L=new line(0.0,0.0);
+L->setLineName(String nameLineToSet("volt"));
+String　lNameY= getLineName();
+
+L->setLineNameX("time");
+String  lNmaeX =getLineNameX();
+//両方の名前を同時に設定するには
+L->setLineName("volt","time");
+//第一引数がライン名で第二引数がX軸名です。ご注意ください。
+
+
+//graphオブジェクトの名前づけと名前の取得
+graph *g=new graph();
+g->setGraphName("the graph");
+String g->getGraphName();
+```
+## オブジェクトの名前による検索
+名前をつけられたオブジェクトが親オブジェクトの子供として設定されている場合は
+親オブジェクトから子オブジェクトの名前による検索できます。
+```cpp
+//子オブジェクトに名前を持たせる処理例
+line *L =new line(p); 
+L->setLineName("myLine");
+graph *g =new graph();
+g->addLine(L);
+AsyncWebServer　webServer;
+webGraph *w=new  webGraph (&webServer);
+g->setGraphName("myGraph");
+w->addGraph(g);
+......
+//名前による検索処理
+graph *lookFor=w->searchGraphName("myGraph");
+line *look =lookFor->searchLineName("myLine");
 ```
