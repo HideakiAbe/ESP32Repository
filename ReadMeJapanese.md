@@ -53,7 +53,7 @@ const char* password = "****".
 ```
 
 ### サンプルスケッチをESP32ボードにアップロードした後
-esp32ボードに接続し、シリアルモニターに「You can now access graph to http://<ipaddress>」と表示されるのを待ちます。Webブラウザから http://<ipaddress> にアクセスできるようになります。
+esp32ボードに接続し、シリアルモニターに「You can now access graph to http://ipaddress」と表示されるのを待ちます。Webブラウザから http://ipaddressにアクセスできるようになります。
 ![windBlows](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/tornadopng.png)
 
 ## 4つのオブジェクトを使用して
@@ -218,7 +218,7 @@ w->addGraph(g);
 graph *lookFor=w->searchGraphName("myGraph");
 line *look =lookFor->searchLineName("myLine");
 ```
-オブジェクト階層の最上位のwebGraph　*w　だけを保持していれ名前で子供オブジェクトを芋づる式に把握できることになります。
+オブジェクト階層の最上位のwebGraph　*w　だけを保持していれば名前で子供オブジェクトを芋づる式に把握できることになります。
 ですからwebGraph　オブジェクトはグローバル変数領域で宣言するとすべてのローカル関数で利用できるので便利かもしれません。
 そのような例を以下に示します。
 ```cpp
