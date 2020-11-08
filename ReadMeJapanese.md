@@ -216,3 +216,16 @@ w->addGraph(g);
 graph *lookFor=w->searchGraphName("myGraph");
 line *look =lookFor->searchLineName("myLine");
 ```
+オブジェクト階層の最上位のwebGraph　*w　だけを保持していれ名前で子供オブジェクトを芋づる式に把握できることになります。
+ですからwebGraph　オブジェクトはグローバル変数領域で宣言するとすべてのローカル関数で利用できるので便利かもしれません。
+そのような例を以下に示します。
+```cpp
+AsyncWebServer　webServer;
+webGraph *w=new  webGraph (&webServer);
+void setup(){
+//wを利用
+}
+void loop(){
+//wを利用
+}
+```
