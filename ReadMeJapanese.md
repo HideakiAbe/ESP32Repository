@@ -70,62 +70,64 @@ webGraphオブジェクトはこのライブラリのトップレベルのオブ
 ２４０ｘ４X3＝２８８０
 を超えないように設定をお願いします。本ライブラリの全オブジェクトの利用してる実メモリ量はmemory()関数で確認できます。２８８０ポイントを最大に利用した場合でも本ライブラリの消費メモリ量が40Kバイト以下に抑えるように設計されています。
 
-cpp
+```cpp
 const unsigned int _MAX_POTS_IN_A_LINE_ = 240;
 const unsigned int _MAX_LINES_IN_A_GRAPH_ = 4;
 const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
 ```
 
 ### 以下の関数でwebGraphを利用することができます．
-cpp
+```cpp
 /// webGraph オブジェクトのコンストラクタは 必ずAsyncWebServer ポインタのパラメータを持たなければなりません．
-    webGraph(AsyncWebServer *myServer).
-    webGraph(AsyncWebServer *myServer, graph *g).
-    webGraph(AsyncWebServer *myServer, graph *g); ~webGraph().
+    webGraph(AsyncWebServer *myServer);
+    webGraph(AsyncWebServer *myServer, graph *g);
+    webGraph(AsyncWebServer *myServer, graph *g); 
+    ~webGraph();
     すでに作成済みのgraphオブジェクトを含めたコンストラクタでもOKです。
 
 //メンバー関数の利用方法
     
-    void begin()。 
+    void begin();
     ブラウザからのhttpリクエストであれば、 //ウェブレスポンスを開始します。begin()が実行されるまではWEBへの公開はされません。
     
-    webGraph *addGraph(graph *g).      
+    webGraph *addGraph(graph *g);
     //グラフオブジェクトをwebGraphに追加するメンバー関数です。
     //webGrapに4つ以上のグラフを追加した場合。
     //webGraphは3つのグラフまでしか保持しません。
     
-    boolean setDirty(boolean dirty).   
+    boolean setDirty(boolean dirty);
     // このwebGraphの下にある子オブジェクトを変更した場合は，真の値を設定してください。真の値を設定した場合は変更内容がグラフに反映されます。
 
-    void webRefreshRate(time_t refreshSecond = 600). 
+    void webRefreshRate(time_t refreshSecond = 600);
     // ウェブブラウザにリフレッシュ期間を通知します。
     
-    void XvalueString(String graphName, String lineName, callback_with_arg_float myXfunc). 
+    void XvalueString(String graphName, String lineName, callback_with_arg_float myXfunc);
     //X値表示関数を指定されたグラフに設定にします。
-    //mywebGraph->XvalueString("myGraph", "time",myXfunc).
+    //mywebGraph->XvalueString("myGraph", "time",myXfunc);
 　設定する関数は浮動小数点を引数として関数の戻り値がString型です。
 例えば以下のような関数です。
-    //String myXfunc(float time){ return String(uint32_t(time);}.
+    //String myXfunc(float time){ return String(uint32_t(time);}
     
     void YvalueString(String graphName, String lineName, callback_with_arg_float myYfunc).
     //名前のついたグラフにY軸の値の表示関数を設定する
     
     void setBackgroundColor(String color).
-    // 背景色を設定します (デフォルトカラー ="#dddddd")
-    
-    graph *importJson(String graphName, String json, String xKey. 
-    
+    // 背景色を設定します (デフォルトカラー ="#dddddd");
+```
     
     
     
-    ## オブジェクトの基本操作
+    
+    
+    
+## オブジェクトの基本操作
 ### オブジェクトの生成例
 ```cpp
 float x=0.0;
 float y=analogRead(34);
 point *p=new point(x,y); 
       //pointには必ずx,y座標をfloat型で指定してください。
-line *L =new line(p); 　
+line *L =new line(p); 
       //lineは必ず１つ以上のpointを持たせてください。
 graph *g=new graph();
 AsyncWebServer　webServer;
@@ -217,7 +219,7 @@ w->addGraph(g);
 graph *lookFor=w->searchGraphName("myGraph");
 line *look =lookFor->searchLineName("myLine");
 ```
-オブジェクト階層の最上位のwebGraph　**w　だけを保持していれば名前で子供オブジェクトを芋づる式に把握できることになります。
+オブジェクト階層の最上位のwebGraph　*w　だけを保持していれば名前で子供オブジェクトを芋づる式に把握できることになります。
 ですからwebGraph　オブジェクトはグローバル変数領域で宣言するとすべてのローカル関数で利用できるので便利かもしれません。
 そのような例を以下に示します。
 ```cpp
@@ -232,7 +234,7 @@ void loop(){
 ```
 ## グラフをもっと簡単に作成する
 今まで記述したグラフ作成では4つのオブジェクトを順番に作成する基本手順を説明しましたが、正直言ってやや煩雑な手順に思えます。
-これから説明する手順は、このライブラリの最も強力で簡単なグラフ作成方法を説明します。
+これから説明する手順は、このライブラリの最も強力で簡単なグラフ作成方法を説明します。子オブジェクトの作成は不要となります。
 - webGraphを作成
 - JSON テキストを　webGraphにインポートする
 
