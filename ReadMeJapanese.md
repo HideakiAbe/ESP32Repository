@@ -139,7 +139,7 @@ lineにpointを追加する。
 ```cpp
 line *new line(p);
 point *q=new point(x,y);
-//point の使いまわしは不可、必ず新しいpoint を追加してください。
+//point の使いまわしは不可、都度必ず新しいpoint を追加してください。
 L->addPoint(q);
 ```
 graph *gにline *Lを追加する。
