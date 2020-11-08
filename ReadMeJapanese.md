@@ -67,14 +67,13 @@ webGraph のXsize, Ysize は子グラフのサイズとその数によって自�
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/objectLevel.png)
 
 webGraphオブジェクトはこのライブラリのトップレベルのオブジェクトです．このwebGraphはウェブサーバ・ポインタを保持し，デフォルトではこのオブジェクトの中に1つまたは最大3つのまでの子グラフを保持します．最大グラフ数はヘッダファイル <webGraphLib.h> でいかのように定義されています．若干の変更は可能ですが、ヒープ領域の制限から３つの掛け算の値
-２４０ｘ４　X　3＝２８８０
-を超えないように設定をお願いします。本ライブラリの全オブジェクトの利用してる実メモリ量はmemory()関数で確認できます。２８８０ポイントを最大に利用した場合でもメモリ量が40Kバイト以下に抑えるように設計されています。
+２４０ｘ４X3＝２８８０
+を超えないように設定をお願いします。本ライブラリの全オブジェクトの利用してる実メモリ量はmemory()関数で確認できます。２８８０ポイントを最大に利用した場合でも本ライブラリの消費メモリ量が40Kバイト以下に抑えるように設計されています。
 
 cpp
-const unsigned int _MAX_POTS_IN_A_LINE_ = 240.
-const unsigned int _MAX_LINES_IN_A_GRAPH_ = 4.
-const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3.
-
+const unsigned int _MAX_POTS_IN_A_LINE_ = 240;
+const unsigned int _MAX_LINES_IN_A_GRAPH_ = 4;
+const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
 ```
 
 ### 以下の関数でwebGraphを利用することができます．
@@ -253,6 +252,7 @@ void loop(){
  int ykeyElements =2;
  while(w->busy());//ブラウザアクセス中はインポートを待つ
  w->importJson(“mygraph”,jsonString,xkey,ykeys[],ykeyElements);
+ delay(100);
 }
 ```
 
