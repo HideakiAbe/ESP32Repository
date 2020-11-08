@@ -218,7 +218,7 @@ w->addGraph(g);
 graph *lookFor=w->searchGraphName("myGraph");
 line *look =lookFor->searchLineName("myLine");
 ```
-オブジェクト階層の最上位のwebGraph　*w　だけを保持していれば名前で子供オブジェクトを芋づる式に把握できることになります。
+オブジェクト階層の最上位のwebGraph　**w　だけを保持していれば名前で子供オブジェクトを芋づる式に把握できることになります。
 ですからwebGraph　オブジェクトはグローバル変数領域で宣言するとすべてのローカル関数で利用できるので便利かもしれません。
 そのような例を以下に示します。
 ```cpp
@@ -231,3 +231,23 @@ void loop(){
 //wを利用
 }
 ```
+## グラフをもっと簡単に作成する
+今まで記述したグラフ作成では4つのオブジェクトを順番に作成する基本手順を説明しましたが、正直言ってやや煩雑な手順に思えます。
+これから説明する手順は、このライブラリの最も強力で簡単なグラフ作成方法を説明します。
+-webGraphを作成
+-JSON テキストを　webGraphにインポートする
+以上の簡単な手順で　見やすいグラフを作成できます。
+```cpp
+#include ......
+AsyncWebServer　webServer;
+webGraph *w=new  webGraph (&webServer);
+void setup(){
+//wifi network setting
+  w->begin();
+}
+void loop(){
+  w->importJson(“mygraph”,jsonString,xkey,ykeys[],ykeyElements);
+}
+
+
+
