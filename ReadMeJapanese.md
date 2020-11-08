@@ -237,7 +237,7 @@ void loop(){
 - webGraphを作成
 - JSON テキストを　webGraphにインポートする
 
-以上の簡単な手順で　見やすいグラフを作成できます。
+以下の10数行の簡単な手順で34番ピンのアナログ電圧や35番ピンの電流グラフを作成できます。
 ```cpp
 //#include ......
 AsyncWebServer　webServer;
@@ -247,11 +247,12 @@ void setup(){
   w->begin();
 }
 void loop(){
-String jsonString="{¥"time¥":"+String(millis())+",¥"volt¥":"+String(analogRead(34))+",¥"cuttent¥":"+Strin(analogRead(35))+"}";
-String xkey(time);
-String[2]={"volt","current"};
-int ykeyElements =2;
-  w->importJson(“mygraph”,jsonString,xkey,ykeys[],ykeyElements);
+ String jsonString="{¥"time¥":"+String(millis())+",¥"volt¥":"+String(analogRead(34))+",¥"cuttent¥":"+Strin(analogRead(35))+"}";
+ String xkey("time");
+ String ykeys[2]={"volt","current"};
+ int ykeyElements =2;
+ while(w->busy());//ブラウザアクセス中はインポートを待つ
+ w->importJson(“mygraph”,jsonString,xkey,ykeys[],ykeyElements);
 }
 ```
 
