@@ -236,9 +236,10 @@ void loop(){
 これから説明する手順は、このライブラリの最も強力で簡単なグラフ作成方法を説明します。
 - webGraphを作成
 - JSON テキストを　webGraphにインポートする
+
 以上の簡単な手順で　見やすいグラフを作成できます。
 ```cpp
-#include ......
+//#include ......
 AsyncWebServer　webServer;
 webGraph *w=new  webGraph (&webServer);
 void setup(){
@@ -246,8 +247,13 @@ void setup(){
   w->begin();
 }
 void loop(){
+String jsonString="{¥"time¥":"+String(millis())+",¥"volt¥":"+String(analogRead(34))+",¥"cuttent¥":"+Strin(analogRead(35))+"}";
+String xkey(time);
+String[2]={"volt","current"};
+int ykeyElements =2;
   w->importJson(“mygraph”,jsonString,xkey,ykeys[],ykeyElements);
 }
+```
 
 
 
