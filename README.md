@@ -91,7 +91,7 @@ void loop() {
   delay(100);
 }
 ```
-This section describes the function importJson, which is used to create graphs.
+This section describes the function "importJson()", which is used to create graphs.
 - The first argument "mygraph" is a string name for the graph.If a "mygraph" exists in WebGraph, the second argument, json data, is added to the graph as a single point of data.
 - If it does not exist, we create a new graph with the name "mygraph" and add the json data of the second argument as a single point of data.
 - The second argument is a String in json containing the data we want to make into a graph.In our example, time, volt34, and volt35 are set to their values as keys.
