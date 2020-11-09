@@ -232,29 +232,32 @@ void loop(){
 //wを利用
 }
 ```
-## グラフをもっと簡単に作成する
-今まで記述したグラフ作成では4つのオブジェクトを順番に作成する基本手順を説明しましたが、正直言ってやや煩雑な手順に思えます。
-これから説明する手順は、このライブラリの最も強力で簡単なグラフ作成方法を説明します。子オブジェクトの作成は不要となります。
+## グラフを簡単に作成する
+これから説明する手順は、このライブラリの最も簡単なグラフ作成方法を説明します。
 - webGraphを作成
 - JSON テキストを　webGraphにインポートする
 
-以下の10数行の簡単な手順で34番ピンのアナログ電圧や35番ピンの電流グラフを作成できます。
+以下の10数行の簡単な手順で34番ピンのアナログ電圧や35番ピンのグラフを作成できます。
 ```cpp
-//#include ......
-AsyncWebServer　webServer;
-webGraph *w=new  webGraph (&webServer);
-void setup(){
-//wifi network setting
+#include <WiFi.h>
+#include <ESPAsyncWebServer.h> //https://github.com/me-no-dev/ESPAsyncWebServer
+#include <webGraphLib.h>
+AsyncWebServer webServer(80);
+webGraph *w = new  webGraph (&webServer);
+void setup() {
+  Serial.begin(115200);
+  //connect To wifi 
   w->begin();
 }
-void loop(){
- String jsonString="{¥"time¥":"+String(millis())+",¥"volt¥":"+String(analogRead(34))+",¥"cuttent¥":"+Strin(analogRead(35))+"}";
- String xkey("time");
- String ykeys[2]={"volt","current"};
- int ykeyElements =2;
- while(w->busy());//ブラウザアクセス中はインポートを待つ
- w->importJson(“mygraph”,jsonString,xkey,ykeys[],ykeyElements);
- delay(100);
+void loop() {
+  String jsonString = "{\"time\":" + String(millis()) + ",\"volt34\":" + String(analogRead(34)) + ",\"volt35\":" + String(analogRead(35)) + "}";
+  String xkey("time");
+  String ykeys[2] = {"volt34", "volt35"};
+  int ykeyElements = 2;
+  while (w->busy()); //ブラウザアクセス中はインポートを待つ
+  w->importJson("mygraph", jsonString, xkey, ykeys, ykeyElements);
+  Serial << w->print();
+  delay(100);
 }
 ```
 
