@@ -238,6 +238,7 @@ void loop(){
 - JSON テキストを　webGraphにインポートする
 
 以下の10数行の簡単な手順で34番ピンのアナログ電圧や35番ピンのグラフを作成できます。
+wiFi へ接続する手順は省いていますので追加ください。
 ```cpp
 #include <WiFi.h>
 #include <ESPAsyncWebServer.h> //https://github.com/me-no-dev/ESPAsyncWebServer
@@ -256,7 +257,6 @@ void loop() {
   int ykeyElements = 2;
   while (w->busy()); //ブラウザアクセス中はインポートを待つ
   w->importJson("mygraph", jsonString, xkey, ykeys, ykeyElements);
-  Serial << w->print();
   delay(100);
 }
 ```
