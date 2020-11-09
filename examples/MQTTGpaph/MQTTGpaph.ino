@@ -103,9 +103,6 @@ String timeToDisplay(float residu) {
   TimeElements tm2;
   breakTime(val, tm2);
   String S;
-  //S = String(tm2.Year + 1970) + "/";
-  //S += (tm2.Month < 10 ? "0" : "") + String(tm2.Month) + "/";
-  //S += (tm2.Day < 10 ? "0" : "") +  String(tm2.Day) + " ";
   S += (tm2.Hour < 10 ? "0" : "") +  String(tm2.Hour) + ":";
   S += (tm2.Minute < 10 ? "0" : "") +  String(tm2.Minute) + ":";
   S += (tm2.Second < 10 ? "0" : "") +  String(tm2.Second);

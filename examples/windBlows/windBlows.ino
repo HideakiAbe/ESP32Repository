@@ -39,6 +39,7 @@ void setup() {
   while (1) {
     if (millis() % 200 < 10) {
       String Json = randomWindJson();
+      while(jsonWebGraph->busy());
       jsonWebGraph->importJson(graphName, Json, xKey, yKeys, ykeyCount);
       //Serial.println(Json);
     }

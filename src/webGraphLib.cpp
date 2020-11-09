@@ -33,7 +33,8 @@ template<class T> inline Print &operator <<(Print & obj, T arg) {
 
 String Stringf(String format, float x, float y) {
   char bufferX[512];
-  if (format.length() > sizeof(bufferX) / 8) {
+  if (format.length() > sizeof(bufferX) / 6) {
+	DEBUGOUT(format)
     DEBUGOUT(" stop for safty reason")
     DEBUGSTOP
   }
@@ -248,6 +249,7 @@ line::line(float xPoint, float yPoint) {
 line::~line() {
   if (_head) {
     _head->removeAllPoints();
+    _Thead->removeAllPoints();
     _lineString = "";
     _dirty = true;
   }
@@ -462,16 +464,29 @@ void line::removeAllLines() {
 }
 size_t line::processNextPointResponse(String *content,int lineIndex,int lineNumbers,graph *parent,int halfPoint){
 	if(halfPoint ==0){
+		//DEBUGOUT(lineNumbers)
+		//DEBUGOUT(lineIndex)
+		//DEBUGOUTH(this)
+		//DEBUGOUT(_lineNameY)
 		size_t increase =	responseFirst(content, lineIndex,lineNumbers,parent);
 		return increase;
 	}else if(halfPoint==1){
+		//DEBUGOUT(lineNumbers)
+		//DEBUGOUT(lineIndex)
+		//DEBUGOUTH(this)
+		//DEBUGOUT(_lineNameY)
 		size_t increase =	responseSecond(content, lineIndex,lineNumbers,parent);
 		return increase;
 	}else{
+		//DEBUGOUT(lineNumbers)
+		//DEBUGOUT(lineIndex)
+		//DEBUGOUTH(this)
+		//DEBUGOUT(_lineNameY)
 		return 0;
 	}
 }
 size_t line::responseFirst(String *content,int lineIndex, int lineNumbers, graph *parent) {
+  //DEBUGOUT(_lineNameY)
  _lineString = "";
   lineNumbers = constrain(lineNumbers, 1, _MAX_LINES_IN_A_GRAPH_);
   lineIndex = constrain(lineIndex, 0, lineNumbers - 1);
@@ -520,7 +535,7 @@ size_t line::responseFirst(String *content,int lineIndex, int lineNumbers, graph
   size_t increase=_lineString.length();
   (*content)+=_lineString;
   _lineString="";
-  log_i("inclease = %d",increase);
+  //log_i("inclease = %d",increase);
   return increase;
 }
 size_t line::responseSecond(String *content,int lineIndex, int lineNumbers, graph *parent) {
@@ -582,7 +597,7 @@ size_t line::responseSecond(String *content,int lineIndex, int lineNumbers, grap
   size_t increase=_lineString.length();
   (*content)+=_lineString;
   _lineString="";
-   log_i("inclease = %d",increase);
+   //log_i("inclease = %d",increase);
   return increase;
 }
 
@@ -694,7 +709,7 @@ String line::print() {
     ret += " (maxX, maxY) = (" + String(L->_maxX) + ", " + String(L->_maxY) + ")";
     ret += " (minX, minY) = (" + String(L->_minX) + ", " + String(L->_minY) + ")";
     point *q = L->_head;
-    ret += q->print();
+    //ret += q->print();
     L = L->_next;
     ////((uint32_t)L)
   }
@@ -899,6 +914,8 @@ graph *graph::importJson(String json, String xKey, String yKeys[_MAX_LINES_IN_A_
       addLine(L);
       L->setLineName(yKeys[i], xKey);
     }
+    //DEBUGOUT(yKeys[0])
+    //DEBUGOUT(yKeys[1])
   }
   doc.clear();
   return this;
@@ -927,7 +944,8 @@ size_t graph::processNextLineResponse(String *content,int lineIndex,float ypos){
 		 lineNumber=0;
 	}
 	unsigned int LCount =_head->_count();
-
+	//DEBUGOUT(LCount)
+	
 	size_t increase;
 	if(lineNumber ==0){
 		//LINE
@@ -936,20 +954,27 @@ size_t graph::processNextLineResponse(String *content,int lineIndex,float ypos){
 		return increase;
 	}
 	line *L=_head;
-	int tmp=lineNumber;
+	int tmp=lineNumber-1;
 	if(tmp < LCount){
-		while(--tmp){
+		//DEBUGOUT(tmp)
+		while(tmp-- && L){
+			//DEBUGOUT(tmp)
+			//DEBUGOUT(L->getLineName())
 			L=L->_next;
+			//DEBUGOUT(L->getLineName())
 		}
 	}
-	
+	//DEBUGOUT(lineNumber-1)
+	//DEBUGOUT(L->getLineName())
 	while(lineNumber<=LCount){
 		do{
+			DEBUGOUT(L->getLineName())
 			increase=L->processNextPointResponse(content,lineNumber-1,LCount,this,halfPoint);
 			halfPoint++;
 			if(increase) return increase;
 		}while(increase);
 		lineNumber++;
+		DEBUGOUT(lineNumber)
 		halfPoint=0;
 		return increase;
 	}
@@ -1439,12 +1464,16 @@ webGraph::webGraph(AsyncWebServer *myServer, graph *g) {
   _head = g;
   String _webGraphString;
   if (_graphWebserver) {
-    _graphWebserver->on("/", HTTP_GET, [this](AsyncWebServerRequest * request) {
-      request->send(200, "text/html", this->response());
-      //void send_P(int code, const String& contentType, const uint8_t * content, size_t len, AwsTemplateProcessor callback=nullptr);
- 
+	_graphWebserver->on("/", HTTP_GET, [this](AsyncWebServerRequest * request) {
+		this->setDirty(true);
+		AsyncWebServerResponse *response =
+		  request->beginChunkedResponse("text/html",[this](uint8_t* content, size_t maxLen, size_t index){
+		   size_t K=this->_webGraphString.length();
+				size_t writeSize = manageWebString(content,maxLen, index);
+				return writeSize;
+			});
+		  request->send(response);
     });
-    _graphWebserver->onNotFound(notFound);
   }
 }
 
@@ -1652,6 +1681,7 @@ size_t webGraph::processNextresponse(size_t index){
 	return 0;
 }
 size_t webGraph::manageWebString(uint8_t *content,size_t maxlen,size_t index){
+	LINE
 	if(_busy==false){
 		_busy=true;
 		log_i("busy=%d",_busy);

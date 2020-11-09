@@ -3,9 +3,9 @@
 #ifndef _webgraphlibl_h
 #define _webgraphlibl_h
 
-const unsigned int _MAX_POINTS_IN_A_LINE_ = 240;
+const unsigned int _MAX_POINTS_IN_A_LINE_ = 480;
 const unsigned int _MAX_LINES_IN_A_GRAPH_ = 4;
-const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
+const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 1;
 const unsigned int _MAXTPOINT_IN_A_GRAPH_ = 10;
 
 #define FLT_MAX 3.402823e+38
