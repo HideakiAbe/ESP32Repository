@@ -269,4 +269,40 @@ importJsonの機能について説明します。グラフ作成関数
 配列には最大で4つまでkeyを指定できます。その場合は4つに分割されて表示されます。ykeysはそれぞれのline名として利用さまれす。
 - 第五引数は第四引数の配列の要素数を設定してください。この例では2となります。
 
+## 名前の設定
+```cpp
+//line名前の設定関数
+void line::setName(String nameLineToSet);     // line name = line y-axis name
+void line::setLineName(String nameLineToSet); //same functin as setName()
+void line::setLineName(String nameLineToSet, String nameX);
+void line::setLineNameX(String nameX);
 
+//line名前の取得関数
+String line::getLineName();
+String line::getLineNameX();
+```
+
+
+## X軸Y軸表示関数の設定
+```cpp
+//lineを直接指定してそのXY軸に表示関数を設定します
+void line::XvalueString(callback_with_arg_float myXFunction);
+void line::YvalueString(callback_with_arg_float myYFunction);
+
+//graphに含まれるline名をxName,yNameで探してその軸に表示関数を設定します。
+//存在しない場合はその名前でlineを追加します。
+void graph::XvalueString(String xName, callback_with_arg_float myXfunc);
+void graph::YvalueString(String yName, callback_with_arg_float myYfunc);
+void graph::XYvalueString(String xName, callback_with_arg_float myXfunc, String yName, callback_with_arg_float myYfunc);
+
+//webGraphに含まれるline名をgraph名とline名で探してその軸に表示関数を設定します。
+//存在しない場合はその名前でgraphを追加します。
+void webGraph::XvalueString(String graphName, String lineName, callback_with_arg_float myXfunc);
+void webGraph::YvalueString(String graphName, String lineName, callback_with_arg_float myYfunc);
+```
+## カラーの指定
+```cpp
+void line::setLineColor(String color);
+void graph::setBackgroundColor(String ColorNumber);
+void webGraph::setBackgroundColor(String color);
+```
