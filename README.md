@@ -54,12 +54,53 @@ const char* password = "****".
 to the esp32 board and wait for the serial monitor to say "You can now access the graph to http://<ipaddress>". You will be able to access http://<ipaddress> from your web browser.
 ![windBlows](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/tornadopng.png)
 
+
 ## Using the four objects
 Object Hierarchy
 
 The four objects have a hierarchical structure, as shown in the figure.
 A parent object can have more than one child object, but the maximum number of objects it can have is fixed for each.　If you add more than the maximum number of objects, the oldest objects are deleted in the order in which they are added.
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/objectLevel.png)
+
+## Easily create a graph
+Let's take a look at the easiest way to create a graph using this library.
+- Creating a webGraph
+- Importing JSON text into webGraph
+
+The following ten or so lines of easy steps will allow you to create a graph of the analog voltage on pin 34 and pin 35.
+Please add the WiFi connection as it is omitted.
+``cpp
+#include <WiFi.h>
+#include <ESPAsyncWebServer.h> //https://github.com/me-no-dev/ESPAsyncWebServer
+#include <webGraphLib.h>
+AsyncWebServer webServer(80);
+webGraph *w = new webGraph (&webServer);
+void setup() {
+  Serial.begin(115200);
+  //connect To wifi 
+  w->begin();
+}
+void loop() {
+  String jsonString = "{\"time\":" + String(millis()) + ",\"volt34\":" + 
+  String(analogRead(34)) + ",\"volt35\":" + String(analogRead(35)) + "}";
+  String xkey("time");
+  String ykeys[2] = {"volt34", "volt35"};
+  int ykeyElements = 2;
+  while (w->busy()); //Wait for import during browser access
+  w->importJson("mygraph", jsonString, xkey, ykeys, ykeyElements);
+  delay(100);
+}
+````
+This section describes the function importJson, which is used to create graphs.
+- The first argument "mygraph" is a string name for the graph.If a "mygraph" exists in WebGraph, the second argument, json data, is added to the graph as a single point of data.
+- If it does not exist, we create a new graph with the name "mygraph" and add the json data of the second argument as a single point of data.
+- The second argument is a String in json containing the data we want to make into a graph.In our example, time, volt34, and volt35 are set to their values as keys.
+- The third argument is a json key of string type to be used on the x-axis. In this example, "time" is specified as the value for x-axis.
+- The fourth argument specifies the json key to be used on the y-axis as a String type ** array**. In this example, the graph is divided into two parts, with the line of volt34 on top and the line of volt35 on the bottom.
+Up to four keys can be specified in the array, in which case the array is divided into four parts. The array can have up to four keys, in which case it will be split into four separate lines, where ykeys is used as the name of each line.
+- The fifth argument should be the number of elements of the fourth array. In our example, the fifth argument is 2.
+
+
 ### webGraph object coordinate system description
 ![webGraphObject](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/webGraphOject.png)
 Xsize and Ysize are automatically determined by the size of the child graphs and their number.
