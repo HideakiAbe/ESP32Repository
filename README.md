@@ -96,7 +96,7 @@ This section describes the function importJson, which is used to create graphs.
 - If it does not exist, we create a new graph with the name "mygraph" and add the json data of the second argument as a single point of data.
 - The second argument is a String in json containing the data we want to make into a graph.In our example, time, volt34, and volt35 are set to their values as keys.
 - The third argument is a json key of string type to be used on the x-axis. In this example, "time" is specified as the value for x-axis.
-- The fourth argument specifies the json key to be used on the y-axis as a String type ** array**. In this example, the graph is divided into two parts, with the line of volt34 on top and the line of volt35 on the bottom.
+- The fourth argument specifies the json key to be used on the y-axis as a String type **array**. In this example, the graph is divided into two parts, with the line of volt34 on top and the line of volt35 on the bottom.
 Up to four keys can be specified in the array, in which case the array is divided into four parts. The array can have up to four keys, in which case it will be split into four separate lines, where ykeys is used as the name of each line.
 - The fifth argument should be the number of elements of the fourth array. In our example, the fifth argument is 2.
 
