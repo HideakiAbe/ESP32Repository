@@ -69,7 +69,7 @@ Let's take a look at the easiest way to create a graph using this library.
 
 The following ten or so lines of easy steps will allow you to create a graph of the analog voltage on pin 34 and pin 35.
 Please add the WiFi connection as it is omitted.
-``cpp
+```cpp
 #include <WiFi.h>
 #include <ESPAsyncWebServer.h> //https://github.com/me-no-dev/ESPAsyncWebServer
 #include <webGraphLib.h>
@@ -90,7 +90,7 @@ void loop() {
   w->importJson("mygraph", jsonString, xkey, ykeys, ykeyElements);
   delay(100);
 }
-````
+```
 This section describes the function importJson, which is used to create graphs.
 - The first argument "mygraph" is a string name for the graph.If a "mygraph" exists in WebGraph, the second argument, json data, is added to the graph as a single point of data.
 - If it does not exist, we create a new graph with the name "mygraph" and add the json data of the second argument as a single point of data.
