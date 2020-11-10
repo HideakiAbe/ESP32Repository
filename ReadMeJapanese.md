@@ -284,12 +284,7 @@ String line::getLineNameX();
 
 
 ## X軸Y軸表示関数の設定
-- X軸はグラフオブジェクトのグリッドの線の真下に表示されます。
-- ｙ軸は各グリッドラインの最大値と最小値の２か所に表示されます。
-表示位置はグラフの左側で文字列の終わりがグラフの左側になります。
-- 最小値ラインが文字列のベースラインと一致します。
-- 最大値ラインの左側の文字列の上下位置は"hanging"となりますが,
-ブラウザーの種類によっては表示位置がずれることがあります。
+
 ```cpp
 //lineを直接指定してそのXY軸に表示関数を設定します
 void line::XvalueString(callback_with_arg_float myXFunction);
@@ -300,12 +295,22 @@ void line::YvalueString(callback_with_arg_float myYFunction);
 void graph::XvalueString(String xName, callback_with_arg_float myXfunc);
 void graph::YvalueString(String yName, callback_with_arg_float myYfunc);
 void graph::XYvalueString(String xName, callback_with_arg_float myXfunc, String yName, callback_with_arg_float myYfunc);
+void graph::setXvalueStringAngle(float angle);
 
 //webGraphに含まれるline名をgraph名とline名で探してその軸に表示関数を設定します。
 //存在しない場合はその名前でgraphを追加します。
 void webGraph::XvalueString(String graphName, String lineName, callback_with_arg_float myXfunc);
 void webGraph::YvalueString(String graphName, String lineName, callback_with_arg_float myYfunc);
 ```
+- X軸はグラフオブジェクトのグリッドの線の真下にXの座標値が表示されます。テキストの左右幅の中央と座標軸が一致します。
+- ｙ軸は各グリッドラインの最大値と最小値の２か所に表示されます。
+表示位置はグラフの左側で文字列の終わりがグラフの左側になります。
+- 最小値ラインが文字列のベースラインと一致します。
+- 最大値ラインの左側の文字列の上下位置は"hanging"となりますが,
+ブラウザーの種類によっては表示位置がずれることがあります。
+- 文字列の回転に対応しているのはgraphのX軸のみでsetXvalueStringAngleを利用してください。時計回り正方向の回転です。
+回転角度がゼロでない正の値は文字列の先頭が座標軸に合わせられます。
+-１つの座標に表示できる文字列は８文字程度なので長い文字列にならないよう表示関数を工夫ください。
 ## カラーの指定
 ```cpp
 void line::setLineColor(String color);
