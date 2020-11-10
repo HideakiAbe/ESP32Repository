@@ -306,3 +306,17 @@ void line::setLineColor(String color);
 void graph::setBackgroundColor(String ColorNumber);
 void webGraph::setBackgroundColor(String color);
 ```
+## ユーザーテキストの追加
+```cpp
+void line::addUserText(String userText,float x,float y);
+void graph::addUserText(String userText,float x,float y);
+void webGraph::addUserText(String userText,float x,float y);
+boolean webGraph::addUserText(String objectName,String userText,float x,float y,uint8_t fontsize =6,float angle =0);
+```
+- userText文字列をx,y座標に表示します。座標の指定は各オブジェクトの座標系で指定してください。
+- ４番目のobjectNameを引数に持つ関数は配下のオブジェクト名を探してそのオブジェクトに文字列を追加します。
+- この４番目の関数はフォントサイズと文字列の回転角度（時計回りが正）を指定できます。
+- 文字列の表示位置は回転角度０度の場合は文字列左右中央のベースラインが(x,y)と一致します。
+- 回転角度が正の場合は文字先頭が(x,y)と一致します。
+- line オブジェクトに表示する文字の位置はその座標系に従うので　表示しているpointの最大最小の範囲にあるものだけが表示されます。その範囲外になったユーザテキストは削除されます。
+- 各オブジェクトは最大１０個のユーザテキストを保持できますが、それ以上のユーザテキストを追加した場合は古いものから順番に削除されます。
