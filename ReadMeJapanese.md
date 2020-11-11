@@ -76,49 +76,44 @@ const unsigned int _MAX_LINES_IN_A_GRAPH_ = 4;
 const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
 ```
 
-### 以下の関数でwebGraphを利用することができます．
+## グラフを簡単に作成する
+このライブラリを利用して最も簡単なグラフ作成方法を説明します。
+- webGraphを作成
+- JSON テキストを　webGraphにインポートする
+
+以下の10数行の簡単な手順で34番ピンのアナログ電圧や35番ピンのグラフを作成できます。
+wiFi へ接続する手順は省いていますので追加ください。
 ```cpp
-/// webGraph オブジェクトのコンストラクタは 必ずAsyncWebServer ポインタのパラメータを持たなければなりません．
-    webGraph(AsyncWebServer *myServer);
-    webGraph(AsyncWebServer *myServer, graph *g);
-    webGraph(AsyncWebServer *myServer, graph *g); 
-    ~webGraph();
-    すでに作成済みのgraphオブジェクトを含めたコンストラクタでもOKです。
-
-//メンバー関数の利用方法
-    
-    void begin();
-    ブラウザからのhttpリクエストであれば、 //ウェブレスポンスを開始します。begin()が実行されるまではWEBへの公開はされません。
-    
-    webGraph *addGraph(graph *g);
-    //グラフオブジェクトをwebGraphに追加するメンバー関数です。
-    //webGrapに4つ以上のグラフを追加した場合。
-    //webGraphは3つのグラフまでしか保持しません。
-    
-    boolean setDirty(boolean dirty);
-    // このwebGraphの下にある子オブジェクトを変更した場合は，真の値を設定してください。真の値を設定した場合は変更内容がグラフに反映されます。
-
-    void webRefreshRate(time_t refreshSecond = 600);
-    // ウェブブラウザにリフレッシュ期間を通知します。
-    
-    void XvalueString(String graphName, String lineName, callback_with_arg_float myXfunc);
-    //X値表示関数を指定されたグラフに設定にします。
-    //mywebGraph->XvalueString("myGraph", "time",myXfunc);
-　設定する関数は浮動小数点を引数として関数の戻り値がString型です。
-例えば以下のような関数です。
-    //String myXfunc(float time){ return String(uint32_t(time);}
-    
-    void YvalueString(String graphName, String lineName, callback_with_arg_float myYfunc).
-    //名前のついたグラフにY軸の値の表示関数を設定する
-    
-    void setBackgroundColor(String color).
-    // 背景色を設定します (デフォルトカラー ="#dddddd");
+#include <WiFi.h>
+#include <ESPAsyncWebServer.h> //https://github.com/me-no-dev/ESPAsyncWebServer
+#include <webGraphLib.h>
+AsyncWebServer webServer(80);
+webGraph *w = new  webGraph (&webServer);
+void setup() {
+  Serial.begin(115200);
+  //connect To wifi 
+  w->begin();
+}
+void loop() {
+  String jsonString = "{\"time\":" + String(millis()) + ",\"volt34\":" + String(analogRead(34)) + ",\"volt35\":" + String(analogRead(35)) + "}";
+  String xkey("time");
+  String ykeys[2] = {"volt34", "volt35"};
+  int ykeyElements = 2;
+  while (w->busy()); //ブラウザアクセス中はインポートを待つ
+  w->importJson("mygraph", jsonString, xkey, ykeys, ykeyElements);
+  delay(100);
+}
 ```
-    
-    
-    
-    
-    
+importJsonの機能について説明します。グラフ作成関数
+- 第一引数はgraph名をString型で指定します。すでにその名前のgraphがwebGraphに存在している場合はそのgraphに第二引数のjsonデータを追加します。
+- 存在していない場合には新しく指定した名前のgraphを作成し、第二引数のjsonデータを1つのpointデータとして追加します。
+- 第二引数はgraphにしたいデータを含むjsonのStringです。この例ではtime,volt34,volt35をkeyとしてその値が設定されています。
+- 第三引数はx軸として利用するjsonのkeyをString型で指定します。この例ではx軸の値として"time"指定しています。
+- 第四引数はy軸として利用するjsonのkeyをString型の**配列**で指定します。この例では2つのy軸のとしてvolt34とvolt35を指定しています。graphは上下2つに分割され上にvolt34の折線lineが、下にvolt35の折線lineが表示されます。
+配列には最大で4つまでkeyを指定できます。その場合は4つに分割されて表示されます。ykeysはそれぞれのline名として利用さまれす。
+- 第五引数は第四引数の配列の要素数を設定して
+
+       
     
 ## オブジェクトの基本操作
 ### オブジェクトの生成例
@@ -232,42 +227,7 @@ void loop(){
 //wを利用
 }
 ```
-## グラフを簡単に作成する
-このライブラリを利用して最も簡単なグラフ作成方法を説明します。
-- webGraphを作成
-- JSON テキストを　webGraphにインポートする
-
-以下の10数行の簡単な手順で34番ピンのアナログ電圧や35番ピンのグラフを作成できます。
-wiFi へ接続する手順は省いていますので追加ください。
-```cpp
-#include <WiFi.h>
-#include <ESPAsyncWebServer.h> //https://github.com/me-no-dev/ESPAsyncWebServer
-#include <webGraphLib.h>
-AsyncWebServer webServer(80);
-webGraph *w = new  webGraph (&webServer);
-void setup() {
-  Serial.begin(115200);
-  //connect To wifi 
-  w->begin();
-}
-void loop() {
-  String jsonString = "{\"time\":" + String(millis()) + ",\"volt34\":" + String(analogRead(34)) + ",\"volt35\":" + String(analogRead(35)) + "}";
-  String xkey("time");
-  String ykeys[2] = {"volt34", "volt35"};
-  int ykeyElements = 2;
-  while (w->busy()); //ブラウザアクセス中はインポートを待つ
-  w->importJson("mygraph", jsonString, xkey, ykeys, ykeyElements);
-  delay(100);
-}
-```
-importJsonの機能について説明します。グラフ作成関数
-- 第一引数はgraph名をString型で指定します。すでにその名前のgraphがwebGraphに存在している場合はそのgraphに第二引数のjsonデータを追加します。
-- 存在していない場合には新しく指定した名前のgraphを作成し、第二引数のjsonデータを1つのpointデータとして追加します。
-- 第二引数はgraphにしたいデータを含むjsonのStringです。この例ではtime,volt34,volt35をkeyとしてその値が設定されています。
-- 第三引数はx軸として利用するjsonのkeyをString型で指定します。この例ではx軸の値として"time"指定しています。
-- 第四引数はy軸として利用するjsonのkeyをString型の**配列**で指定します。この例では2つのy軸のとしてvolt34とvolt35を指定しています。graphは上下2つに分割され上にvolt34の折線lineが、下にvolt35の折線lineが表示されます。
-配列には最大で4つまでkeyを指定できます。その場合は4つに分割されて表示されます。ykeysはそれぞれのline名として利用さまれす。
-- 第五引数は第四引数の配列の要素数を設定してください。この例では2となります。
+ください。この例では2となります。
 
 ## 名前の設定
 ```cpp
@@ -342,3 +302,51 @@ void graph::setGrid(uint8_t cellsXSplit = 24, uint8_t cellsYSplit = 8);
 - lineのグリッド線の色はラインで指定した色と同じになります。
 - graphのY軸方向はフォルトで8個に分割されようにグリッド線が引かれます。
 - graphのグリッド線の色はいまのところ#DDDDDDで変更できません。　どうしても色を変更したい場合はwebGraph.hの290行目のbase2文字列を直接編集するしか変更手段がありません。変更した場合にはどのような副作用があるかはわかりません。
+
+
+
+### webGraphオブジェクトの生成例
+```cpp
+/// webGraph オブジェクトのコンストラクタは 必ずAsyncWebServer ポインタのパラメータを持たなければなりません．
+webGraph *w = new webGraph(&myServer);
+
+// すでに作成済みのgraphオブジェクトを含めたコンストラクタでもOKです。
+graph *g=new graph();
+webGraph *w = new  webGraph(&myServer,g);
+ ```
+## webGraphの利用方法
+```cpp
+//メンバー関数の利用方法で必須の事項
+  w->begin();
+// ブラウザからのhttpリクエストに応答を開始します。 
+//begin()が実行されるまではWEBへの公開はされません。
+```
+## webGraph に後からグラフを追加したい場合は
+ポインタでで操作します。
+```cpp
+w->addGraph(g);
+//グラフオブジェクトをwebGraphに追加するメンバー関数です。
+//webGrapに4つ以上のグラフを追加した場合。
+//webGraphは3つのグラフまでしか保持しません。
+```
+## 動的なグラフの作成例
+```cpp
+loop(){
+    String json=getJsonFromMQtt(); // json文字列を定期的に取得する処理　例えばMQTTからのサブスクリプション
+    while(w->busy());　　　　　　　//web ブラウザへの応答中は待つ。
+    w^>importJson("myGraph",json,xkey,ykeys,elements); //
+}
+```
+importJsonについては[グラフを簡単に作成する]を参照
+
+## 動的なグラフの表示
+```cpp
+void webRefreshRate(time_t refreshSecond = 600);
+// ウェブブラウザにリフレッシュ周期を通知します。
+```
+
+
+
+    
+    
+    
