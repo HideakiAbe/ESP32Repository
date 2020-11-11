@@ -104,7 +104,7 @@ void loop() {
   delay(100);
 }
 ```
-importJsonの機能について説明します。グラフ作成関数
+グラフ作成関数のimportJsonの機能について説明します。
 - 第一引数はgraph名をString型で指定します。すでにその名前のgraphがwebGraphに存在している場合はそのgraphに第二引数のjsonデータを追加します。
 - 存在していない場合には新しく指定した名前のgraphを作成し、第二引数のjsonデータを1つのpointデータとして追加します。
 - 第二引数はgraphにしたいデータを含むjsonのStringです。この例ではtime,volt34,volt35をkeyとしてその値が設定されています。
@@ -177,7 +177,7 @@ _head->removeAllGraphs();
 webGraphの廃棄関数は~webGrap()となります。
 
 ## オブジェクトの名前づけ
-graphオブジェクトとlineオブジェクトには名前をつけることができます。lineオブジェクト名前はlineオブジェクトのｙ軸の名前と兼用しています。lineオブジェクトのX軸にも名前も持たせることができます。　ユニークな名前を持たせることで特定のオブジェクトへのアクセスが可能になります。pointオブジェクトやwebGraphオブジェクトには名前をつけることはできません。
+graphオブジェクトとlineオブジェクトには名前をつけることができます。lineオブジェクト名前はlineオブジェクトのｙ軸の名前と兼用しています。lineオブジェクトのX軸にも名前も持たせることができます。名前は後述するオブジェクトの操作を行う上でとても重要です。　ユニークな名前を持たせることで特定のオブジェクトへのアクセスが可能になります。pointオブジェクトやwebGraphオブジェクトには名前をつけることはできません。
 ```cpp
 //lineオブジェクトには名前づけと名前の取得
 line *L=new line(0.0,0.0);
@@ -244,7 +244,9 @@ String line::getLineNameX();
 
 
 ## X軸Y軸表示関数の設定
-
+グラフの両軸にスケールを表示する要望は多いかと思いますが、
+表示の仕方は好みが分かれるのでユーザが設定可能な表示関数を
+設定できます。
 ```cpp
 //lineを直接指定してそのXY軸に表示関数を設定します
 void line::XvalueString(callback_with_arg_float myXFunction);
@@ -270,13 +272,19 @@ void webGraph::YvalueString(String graphName, String lineName, callback_with_arg
 - 文字列の回転に対応しているのはgraphのX軸のみでsetXvalueStringAngleを利用してください。時計回り正方向の回転です。
 回転角度がゼロでない正の値は文字列の先頭が座標軸に合わせられます。
 - 座標軸やグリッドラインに表示できる文字列は８文字程度なので長い文字列にならないよう表示関数を工夫ください。
+
 ## カラーの指定
+色指定があらかじめデフォルト色が決まっていますが、３つのオブジェクトは色を変更することが可能です。
+変更したいオブジェクトのポインタから下記関数を呼んでください。
 ```cpp
 void line::setLineColor(String color);
 void graph::setBackgroundColor(String ColorNumber);
 void webGraph::setBackgroundColor(String color);
 ```
 ## ユーザーテキストの追加
+座標軸とは別に　任意の場所に　特定の文字列を表示したい場合は
+文字列を追加したいオブジェクトのポインタから下記関数を呼んでください。
+指定するｘｙ座標は各オブジェクト固有の座標系で指定してください。
 ```cpp
 void line::addUserText(String userText,float x,float y);
 void graph::addUserText(String userText,float x,float y);
@@ -333,8 +341,9 @@ w->addGraph(g);
 ```cpp
 loop(){
     String json=getJsonFromMQtt(); // json文字列を定期的に取得する処理　例えばMQTTからのサブスクリプション
-    while(w->busy());　　　　　　　//web ブラウザへの応答中は待つ。
-    w^>importJson("myGraph",json,xkey,ykeys,elements); //
+    while(w->busy());　　　　　　　//web ブラウザへの応答中はオブジェクトの変更は待つ。
+                                  //ブラウザへの応答中はw->busy()はtureを返す。応答が終わるとfaluseを返す。
+    w->importJson("myGraph",json,xkey,ykeys,elements); //オブジェクトの追加や変更
 }
 ```
 importJsonについては[グラフを簡単に作成する]を参照
