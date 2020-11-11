@@ -56,7 +56,14 @@ const char* password = "****".
 esp32ボードに接続し、シリアルモニターに「You can now access graph to http://ipaddress」と表示されるのを待ちます。Webブラウザから http://ipaddressにアクセスできるようになります。
 ![windBlows](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/tornadopng.png)
 
-## 4つのオブジェクトを使用して
+## 4つのオブジェクトとは
+- webGrap object
+- graph object
+- line object
+- point object
+![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/allObject.png)
+
+
 ### webGraph オブジェクト座標系の説明
     
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/webGraphOject.png)
