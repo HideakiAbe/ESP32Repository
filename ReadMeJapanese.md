@@ -61,7 +61,7 @@ esp32ボードに接続し、シリアルモニターに「You can now access gr
 - graph object
 - line object
 - point object
-![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/allObject.png)
+![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/allOject.png)
 
 
 ### webGraph オブジェクト座標系の説明
