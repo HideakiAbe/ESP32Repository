@@ -15,7 +15,7 @@ webGraphLibは、**ESP32**を使ったArduinoプロジェクト用のWebユー�
 ## 提供される機能
 - センサのシーケンスデータなどをカラーグラフで表示します。
 - MQTT Brokerから送られてくるJSONデータをカラーグラフに表示します。
-- グラフは常に新しいデータが入ってくると更新されます。'
+- グラフは常に新しいデータが入ってくると更新されます。
 - オートスケーリング機能(浮動小数点データの最大値と最小値を検出します)
 - ESPAsyncWebServerによるグラフィックスWebサーバー機能
 - グラフ表示内容を簡単にカスタマイズ可能です、。
@@ -25,9 +25,10 @@ webGraphLibは、**ESP32**を使ったArduinoプロジェクト用のWebユー�
 ## インストール 
 
 ### ZIPファイルをダウンロードしてください。
+
 ![click here](https://github.com/HideakiAbe/ESP32Repository/archive/main.zip)
 
-![zipファイルをダウンロード](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipDwonload.png)
+
 
 
 ### zip ライブラリをインポートします。
