@@ -32,7 +32,7 @@ Please consider downloading it along with.
 
 ### Import the zip library.
 
-![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/zipLibimport.png)
+![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/EzipLibimport.png)
 
 ## Let's use an example in the Arduino IDE 
 - simpleGraph.ino : Convert analog lead data into continuous graph lines.
