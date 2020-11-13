@@ -309,9 +309,10 @@ boolean webGraph::addUserText(String objectName,String userText,float x,float y,
 - Each object can hold up to 10 user texts, but if you add more than 10 user texts, they will be removed in the order of oldest to oldest.
 
 ## Changing grid lines.
-```cpp.
+```cpp
 void line::setGrid(uint8_t cellsXSplit = 24, uint8_t cellsYSplit = 2);
-void graph::setGrid(uint8_t cellsXSplit = 2); void line::setGrid(uint8_t cellsXSplit = 24, uint8_t cellsYSplit = 2)
+void graph::setGrid(uint8_t cellsXSplit = 2); void line::setGrid(uint8_t cellsXSplit = 24, uint8_t cellsYSplit = 2);
+```
 - Grid lines can be set separately for both graph and line objects. The grid lines are displayed in both directions.
 - On the x-axis, grid lines are drawn in 24 segments by default.
 - On the y-axis of the line, the grid lines are split into two by default.
@@ -345,7 +346,7 @@ w->addGraph(g);
 //The member function to add a graph object to webGraph.
 //If you add four or more graphs to webGrap.
 w->addGraph(g); //If you add more than four graphs to webGrap, webGraph will only hold up to three graphs.
-The ``single graph''
+```
 
 ## Example of creating a dynamic graph
 ```cpp.
