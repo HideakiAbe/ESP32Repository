@@ -18,13 +18,13 @@ webGraphLibは、**ESP32**を使ったArduinoプロジェクト用のWebユー�
 - グラフは常に新しいデータが入ってくると更新されます。
 - オートスケーリング機能(浮動小数点データの最大値と最小値を検出します)
 - ESPAsyncWebServerによるグラフィックスWebサーバー機能
-- グラフ表示内容を簡単にカスタマイズ可能です、。
+- グラフ表示内容を簡単にカスタマイズ可能です。
 
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/provideFunctionAbstruct.png)
 
 ## インストール 
 
-### ここをクリックしてZIPファイルをダウンロードしてください。(https://github.com/HideakiAbe/ESP32Repository/archive/main.zip)
+### 以下のURLをクリックしてZIPファイルをダウンロードしてください。(https://github.com/HideakiAbe/ESP32Repository/archive/main.zip)
 
 
 
@@ -36,9 +36,9 @@ webGraphLibは、**ESP32**を使ったArduinoプロジェクト用のWebユー�
 ## Arduino IDEでサンプルを使ってみよう 
 - simpleGraph.ino : アナログリードデータを連続的にグラフ線に変換する．
 - multiGraph.ino : 　1つのウィンドウに2つのグラフを表示する 
-- inputJson.ino : 　JSONの文字列を複数行にインポートする。
+- inputJson.ino : 　JSONの文字列を複数のlineにインポートする。
 - MQTTGpaph.ino : 　MQTTブローカー "test.mosquitto.org "に接続してJSONデータを取得する。
-- windBlows : 　　　グラフの表示範囲を固定する例です。
+- windBlows : 　　　グラフの表示範囲を固定して表示する例です。
 
 
 ![start](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/Startsample.png)
@@ -57,22 +57,22 @@ esp32ボードに接続し、シリアルモニターに「You can now access gr
 以下のグラフがブラウザに表示されるはずです。
 ![windBlows](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/tornadopng.png)
 
-## グラフを構成する4つのオブジェクト
+## グラフを構成する4つのオブジェクトの役割
 - webGrap object　　　graphをWebで公開する役割と複数のgraphを束ねる役割
-- graph object　　　　XY折線グラフを複数表示する役割
+- graph object　　　　XYlineグラフをや座標軸を複数表示する役割
 - line object　　　　　XYデータ系列を管理して座標軸を自動調整する役割
-- point object　　　　入力したXYデータを保持します。保存上限に達すると古いものを削除します。
+- point object　　　　入力したXYデータを保持します。保存上限に達すると古いものから削除します。
+
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/allOject.png)
 
-
-
+## 4つのオブジェクトの階層構造
 
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/objectLevel.png)
 
-webGraphオブジェクトはこのライブラリのトップレベルのオブジェクトです．このwebGraphはウェブサーバ・ポインタを保持し，デフォルトではこのオブジェクトの中に1つまたは最大3つのまでの子グラフを保持します．最大グラフ数はヘッダファイル <webGraphLib.h> でいかのように定義されています．若干の変更は可能ですが、ヒープ領域の制限から３つの掛け算の値
+webGraphオブジェクトはこのライブラリのトップレベルのオブジェクトです．このwebGraphはウェブサーバ・ポインタを保持し，デフォルトではこのオブジェクトの中に1つまたは最大3つのまでの子グラフを保持します．最大graph数はヘッダファイル <webGraphLib.h> で以下のように定義されています．若干の変更は可能ですが、ヒープ領域の制限から３つの掛け算の値
 ２４０ｘ４X3＝２８８０
-を超えないように設定をお願いします。本ライブラリの全オブジェクトの利用してる実メモリ量はmemory()関数で確認できます。２８８０ポイントを最大に利用した場合でも本ライブラリの消費メモリ量が40Kバイト以下に抑えるように設計されています。
-
+を超えないように設定をお願いします。本ライブラリの全オブジェクトの利用してる実メモリ量はmemory()関数で確認できます。２８８０ポイントを最大に利用した場合でも本ライブラリのヒープ消費メモリ量が40Kバイト以下に抑えるように設計されています。
+オブジェクトコードの大きさは56Kバイト程度でESP32で利用できるフラッシュメモリサイズの４％程度となっています。
 ```cpp
 const unsigned int _MAX_POTS_IN_A_LINE_ = 240;
 const unsigned int _MAX_LINES_IN_A_GRAPH_ = 4;
@@ -80,12 +80,14 @@ const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
 ```
 
 ## グラフを簡単に作成する
+
 このライブラリを利用して最も簡単なグラフ作成方法を説明します。
 - webGraphを作成
 - JSON テキストを　webGraphにインポートする
 
-以下の10数行の簡単な手順で34番ピンのアナログ電圧や35番ピンのグラフを作成できます。
-wiFi へ接続する手順は省いていますので追加ください。
+以下の10数行の簡単な手順で34番,35番ピンのアナログ電圧グラフを作成できます。
+8行目のwiFi へ接続する手順は省いていますので追加ください。
+
 ```cpp
 #include <WiFi.h>
 #include <ESPAsyncWebServer.h> //https://github.com/me-no-dev/ESPAsyncWebServer
@@ -107,19 +109,22 @@ void loop() {
   delay(100);
 }
 ```
+
 グラフ作成関数のimportJsonの機能について説明します。
-- 第一引数はgraph名をString型で指定します。すでにその名前のgraphがwebGraphに存在している場合はそのgraphに第二引数のjsonデータを追加します。
-- 存在していない場合には新しく指定した名前のgraphを作成し、第二引数のjsonデータを1つのpointデータとして追加します。
-- 第二引数はgraphにしたいデータを含むjsonのStringです。この例ではtime,volt34,volt35をkeyとしてその値が設定されています。
+- 第一引数はgraph名をString型で指定します。
+- すでに第一引数の名前のgraphがwebGraphに存在している場合はそのgraphに第二引数のjsonデータを追加します。
+- 第一引数の名前のgraphが存在していない場合には新しく指定した名前のgraphを作成し、第二引数のjsonデータを1つのpointデータとして追加します。
+- 第二引数はgraphにしたいデータを含むjsonのStringです。この例ではtime,volt34,volt35をkeyとしてそれぞれの値が設定されています。
 - 第三引数はx軸として利用するjsonのkeyをString型で指定します。この例ではx軸の値として"time"指定しています。
 - 第四引数はy軸として利用するjsonのkeyをString型の**配列**で指定します。この例では2つのy軸のとしてvolt34とvolt35を指定しています。graphは上下2つに分割され上にvolt34の折線lineが、下にvolt35の折線lineが表示されます。
 配列には最大で4つまでkeyを指定できます。その場合は4つに分割されて表示されます。ykeysはそれぞれのline名として利用さまれす。
-- 第五引数は第四引数の配列の要素数を設定して
+- 第五引数は第四引数の配列の要素数を設定してください
 
        
     
 ## オブジェクトの基本操作
 ### オブジェクトの生成例
+
 ```cpp
 float x=0.0;
 float y=analogRead(34);
@@ -128,59 +133,51 @@ point *p=new point(x,y);
 line *L =new line(p); 
       //lineは必ず１つ以上のpointを持たせてください。
 graph *g=new graph();
+g->addLine(L);
 AsyncWebServer　webServer;
 webGraph *w=new  webGraph (&webServer);
      //webGraphには必ずAsyncWebServerのポインタを指定してください。
 ```
+
 ### 親オブジェクトへ子オブジェクトの追加例
-lineにpointを追加する。
+#### lineにpointを追加する。
 ```cpp
 line *new line(p);
 point *q=new point(x,y);
 //point の使いまわしは不可、都度必ず新しいpoint を追加してください。
 L->addPoint(q);
 ```
-graph *gにline *Lを追加する。
+#### graph *gにline *Lを追加する。
 ```cpp
 g->addLine(L);
 ```
-webGraph *wにgraph *gを追加する。
+#### webGraph *wにgraph *gを追加する。
 ```cpp
 ｗ->addGraph(g);
 ```
 まとめますと孫から子供　そして　子供から親の順番に作成してから追加してゆく手順になります。
+この手順が面倒な場合はjson型のデータを作り　importJsonを利用する方法をお勧めします。
 
-###オブジェクトの廃棄
+### オブジェクトの廃棄
 規定された数以上の子オブジェクトを親に追加すると、古いオブジェクトは自動的に廃棄されます。本ライブラリでは最新で最大数の子オブジェクトが残る仕様となっています。そのような理由で常に最新のデータで更新されるので通常はオブジェクトを廃棄する必要性は低いといえます。
-あえて特定のオブジェクトの廃棄は行うには以下の関数があります。
-１、オブジェクトへのポインタで指定して廃棄するタイプ
-```cpp
-_head->removePoint(pRemove);　
-```
-pRemove: リンクから外して廃棄したいpoint
-_headは通常先頭の（古い）pointのポインタで親lineオブジェクトの_head(protected:）要素で管理されています。
-_head要素は公開されていないのでメンバー関数以外からは消しにくい設計となっています。_head以外でもかまわないですが、それよりも新しいオブジェクトだけが削除対象となります。　
 
-以下同様です。
-指定したlineの廃棄
-```cpp
-_head->removeLine(Lremove);
-```
-指定したgraphの廃棄
-```cpp
-_head->removeGraph(gRemove)
-```
+## graph　*gの大きさ変更  と取得
 
-２、オブジェクトを一気に廃棄するタイプ
 ```cpp
-_head->removeAllPoints();
-_head->removeAllLines();
-_head->removeAllGraphs();
+float x = 500.0;
+float y = 800.0;
+g->setSizeX( x );
+g->setSizeY( y );
+g->setSizeXY( x , y );
+
+// 大きさ取得
+float sx = g->getSizeX();
+float sy = g->getSizeY();
 ```
-webGraphの廃棄関数は~webGrap()となります。
 
 ## オブジェクトの名前づけ
 graphオブジェクトとlineオブジェクトには名前をつけることができます。lineオブジェクト名前はlineオブジェクトのｙ軸の名前と兼用しています。lineオブジェクトのX軸にも名前も持たせることができます。名前は後述するオブジェクトの操作を行う上でとても重要です。　ユニークな名前を持たせることで特定のオブジェクトへのアクセスが可能になります。pointオブジェクトやwebGraphオブジェクトには名前をつけることはできません。
+
 ```cpp
 //lineオブジェクトには名前づけと名前の取得
 line *L=new line(0.0,0.0);
@@ -197,11 +194,13 @@ L->setLineName("volt","time");
 //graphオブジェクトの名前づけと名前の取得
 graph *g=new graph();
 g->setGraphName("the graph");
-String g->getGraphName();
+....
+String gname=g->getGraphName();
 ```
 ## オブジェクトの名前による検索
 名前をつけられたオブジェクトが親オブジェクトの子供として設定されている場合は
 親オブジェクトから子オブジェクトの名前による検索できます。
+
 ```cpp
 //子オブジェクトに名前を持たせる処理例
 line *L =new line(p); 
@@ -230,7 +229,6 @@ void loop(){
 //wを利用
 }
 ```
-ください。この例では2となります。
 
 ## 名前の設定
 ```cpp
@@ -303,6 +301,7 @@ boolean webGraph::addUserText(String objectName,String userText,float x,float y,
 - 各オブジェクトは最大１０個のユーザテキストを保持できますが、それ以上のユーザテキストを追加した場合は古いものから順番に削除されます。
 
 ## グリッドラインの変更
+
 ```cpp
 void line::setGrid(uint8_t cellsXSplit = 24, uint8_t cellsYSplit = 2);
 void graph::setGrid(uint8_t cellsXSplit = 24, uint8_t cellsYSplit = 8);
@@ -317,6 +316,7 @@ void graph::setGrid(uint8_t cellsXSplit = 24, uint8_t cellsYSplit = 8);
 
 
 ### webGraphオブジェクトの生成例
+
 ```cpp
 /// webGraph オブジェクトのコンストラクタは 必ずAsyncWebServer ポインタのパラメータを持たなければなりません．
 webGraph *w = new webGraph(&myServer);
@@ -326,13 +326,15 @@ graph *g=new graph();
 webGraph *w = new  webGraph(&myServer,g);
  ```
 ## webGraphの利用方法
+
 ```cpp
 //メンバー関数の利用方法で必須の事項
   w->begin();
 // ブラウザからのhttpリクエストに応答を開始します。 
 //begin()が実行されるまではWEBへの公開はされません。
 ```
-## webGraph に後からグラフを追加したい場合は
+
+## webGraph に後からグラフを追加
 ポインタでで操作します
 ```cpp
 w->addGraph(g);
@@ -358,21 +360,29 @@ void webRefreshRate(time_t refreshSecond = 600);
 ```
 
 ## 付録　オブジェクトの座標系
+
 ４つのオブジェクトは包含関係にあります。
 それぞれは独自の座標系をもっており、オブジェクトの座標系にアクセスする場合はその座標系で指定することができます。
+
 ### webGraph オブジェクト座標系
     
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/webGraphOject.png)
 
 webGraph のXsize, Ysize は子graphのサイズとその数によって自動的に決定されます．デフォルトでは xsize=460, ysize=260 に設定されています．サイズは _sizeX() と _sizeY() のメンバ関数を使って確認することができます。ただし，WebGraph のサイズはユーザが直接設定することはできません．
-変更は子供のオブジェクトgraphから行ってください。
+変更は子供のオブジェクトgraphから行ってください。　
     
 ### graph オブジェクト座標系
+
  一番上のgraphはwebGraphの原点から３０ピクセルだけ内側をgraphの原点としています。SVGの仕様で下側がY軸のプラス方向になります。
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/graphOject.png)
+
 ### line　と point オブジェクト座標系
+
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/lineOject.png)
 lineの座標系の上下左右の端はそのlineに含まれるpointの最大値と最小値に自動的によって定められます。次の関数で固定値を設定することも可能です。
 lineのy座標は上側がプラス方向になります。
 ユーザテキストも各オブジェクトの座標系での位置指定です。
+座標軸を固定する場合は以下の関数の引数で最大最小を指定して、最後の引数をtrueにしてください。
 L->setLineRageXY(minx,maxX,minY,maxY,true);
+
+
