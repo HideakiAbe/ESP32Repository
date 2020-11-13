@@ -64,12 +64,7 @@ esp32ボードに接続し、シリアルモニターに「You can now access gr
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/allOject.png)
 
 
-### webGraph オブジェクト座標系の説明
-    
-![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/webGraphOject.png)
 
-webGraph のXsize, Ysize は子グラフのサイズとその数によって自動的に決定されます．デフォルトでは xsize=460, ysize=260 に設定されています．サイズは _sizeX() と _sizeY() のメンバ関数を使って確認することができます。ただし，WebGraph のサイズはユーザが直接設定することはできません．
-変更は子供のオブジェクトgraphから行ってください。
 
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/objectLevel.png)
 
@@ -361,8 +356,19 @@ void webRefreshRate(time_t refreshSecond = 600);
 // ウェブブラウザにリフレッシュ周期を通知します。
 ```
 
+## 付録　オブジェクトの座標系
+４つのオブジェクトは包含関係にあります。
+それぞれは独自の座標系をもっており、オブジェクトの座標系にアクセスする場合はその座標系で指定することができます。
+### webGraph オブジェクト座標系
+    
+![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/webGraphOject.png)
 
-
+webGraph のXsize, Ysize は子graphのサイズとその数によって自動的に決定されます．デフォルトでは xsize=460, ysize=260 に設定されています．サイズは _sizeX() と _sizeY() のメンバ関数を使って確認することができます。ただし，WebGraph のサイズはユーザが直接設定することはできません．
+変更は子供のオブジェクトgraphから行ってください。
     
-    
-    
+### graph オブジェクト座標系
+    一番上のgraphはwebGraphの原点から３０ピクセルだけ内側をgraphの原点としています。SVGの仕様で下側がY軸のプラス方向になります。
+![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/graphOject.png)
+### line　と point オブジェクト座標系
+![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/lineOject.png)
+lineの座標系の上下左右の端はそのlineに含まれるpointの最大値と最小値に自動的によって定められます。固定値を設定することも可能です。
