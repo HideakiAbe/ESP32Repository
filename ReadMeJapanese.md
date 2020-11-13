@@ -24,9 +24,7 @@ webGraphLibは、**ESP32**を使ったArduinoプロジェクト用のWebユー�
 
 ## インストール 
 
-### ZIPファイルをダウンロードしてください。
-
-![click here](https://github.com/HideakiAbe/ESP32Repository/archive/main.zip)
+### ここをクリックしてZIPファイルをダウンロードしてください。(https://github.com/HideakiAbe/ESP32Repository/archive/main.zip)
 
 
 
@@ -37,31 +35,33 @@ webGraphLibは、**ESP32**を使ったArduinoプロジェクト用のWebユー�
 
 ## Arduino IDEでサンプルを使ってみよう 
 - simpleGraph.ino : アナログリードデータを連続的にグラフ線に変換する．
-- multiGraph.ino : 1つのウィンドウに2つのグラフを表示する 
-- inputJson.ino : JSONの文字列を複数行にインポートする。
-- MQTTGpaph.ino : MQTTブローカー "test.mosquitto.org "に接続してJSONデータを取得する。
-- windBlows : グラフの範囲を設定します。
+- multiGraph.ino : 　1つのウィンドウに2つのグラフを表示する 
+- inputJson.ino : 　JSONの文字列を複数行にインポートする。
+- MQTTGpaph.ino : 　MQTTブローカー "test.mosquitto.org "に接続してJSONデータを取得する。
+- windBlows : 　　　グラフの表示範囲を固定する例です。
 
 
 ![start](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/Startsample.png)
 
-### ここではサンプルスケッチ "windBlows "を開いた後に。
+### サンプルスケッチ "windBlows "を開いた後に
 Wi-Fi設定を自分環境あわせてに変更してください。
 
 ```cpp
-const char* ssid = "****".
-const char* password = "****".
+const char* ssid = "****";
+const char* password = "****";
 ```
 
 ### サンプルスケッチをESP32ボードにアップロードした後
-esp32ボードに接続し、シリアルモニターに「You can now access graph to http://ipaddress」と表示されるのを待ちます。Webブラウザから http://ipaddressにアクセスできるようになります。
+esp32ボードに接続し、シリアルモニターに「You can now access graph to http://ipaddress」
+と表示されるのを待ちます。Webブラウザから http://ipaddressにアクセスできるようになります。
+以下のグラフがブラウザに表示されるはずです。
 ![windBlows](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/tornadopng.png)
 
-## 4つのオブジェクトとは
-- webGrap object
-- graph object
-- line object
-- point object
+## グラフを構成する4つのオブジェクト
+- webGrap object　　　graphをWebで公開する役割と複数のgraphを束ねる役割
+- graph object　　　　XY折線グラフを複数表示する役割
+- line object　　　　　XYデータ系列を管理して座標軸を自動調整する役割
+- point object　　　　入力したXYデータを保持します。保存上限に達すると古いものを削除します。
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/allOject.png)
 
 
