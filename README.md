@@ -53,7 +53,7 @@ const char* password = "****".
 ```
 
 ### After uploading the sample sketches to the ESP32 board.
-Connect to the esp32 board and wait for the serial monitor to say "You can now access the graph to http://ipaddress" from your web browser. http://ipaddressにアクセスできるようになります.
+Connect to the esp32 board and wait for the serial monitor to say "You can now access the graph to http://ipaddress" from your web browser.
 ![windBlows](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/tornadopng.png)
 
 ## What are the four objects?
