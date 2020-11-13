@@ -333,7 +333,7 @@ webGraph *w = new  webGraph(&myServer,g);
 //begin()が実行されるまではWEBへの公開はされません。
 ```
 ## webGraph に後からグラフを追加したい場合は
-ポインタでで操作します。
+ポインタでで操作します
 ```cpp
 w->addGraph(g);
 //グラフオブジェクトをwebGraphに追加するメンバー関数です。
