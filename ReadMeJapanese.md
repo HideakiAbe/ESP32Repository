@@ -372,3 +372,4 @@ webGraph のXsize, Ysize は子graphのサイズとその数によって自動�
 ### line　と point オブジェクト座標系
 ![](https://github.com/HideakiAbe/ESP32Repository/blob/main/doc/lineOject.png)
 lineの座標系の上下左右の端はそのlineに含まれるpointの最大値と最小値に自動的によって定められます。固定値を設定することも可能です。
+L->setLineRageXY(minx,maxX,minY,maxY,true);
