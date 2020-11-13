@@ -146,8 +146,10 @@ String point::print() {
 //////
 
 
-Tpoint::Tpoint(float x, float y, String text): point(x, y) {
+Tpoint::Tpoint(float x, float y, String text,uint8_t fontsize,float angle): point(x, y) {
   _text = text;
+  _fontsize=fontsize;
+  _angle=PI*constrain(angle,-180.0,180.0)/180.;
 }
 Tpoint::~Tpoint() {
   _text = "";
@@ -180,12 +182,23 @@ String Tpoint::response( float midY, float offsetX, float offsetY, float ratioX,
   for (; t; t = (Tpoint *)((point *)t->_next)) {
     tmp = textMatrix;
     if (color.length()) {
-      tmp.replace("fill=\"#00FF7F\"", "fill=\"" + color + "\"");
+      tmp.replace("fill=\"#00FF7F\"", "fill="+color);
     }
+    tmp.replace("font-size=\"6","font-size=\""+String(t->_fontsize));
     tmp.replace("></", ">" + t->_text + "</");
     float tx = ratioX * (t->x() - offsetX);
     float ty = offsetY - ratioY * (t->y() - midY);
-    tmp.replace("matrix()", "matrix(1 0 0 1 " + String(tx,0) + " " + String(ty,0) + ")");
+    float cx=  cos(t->_angle);
+    float sy = sin(t->_angle);
+    if (_angle >= 0.0) {
+      tmp.replace("matrix()", "matrix("+String(cx) + " " + String(sy) + " " + String(-sy) + " " + String(cx) + " "  + String(tx) + " " + String(ty)+")");
+      tmp.replace("text-anchor=\"middle\"", "text-anchor=\"start\"");
+    } else if(_angle < 0.0){
+      tmp.replace("matrix()","matrix("+ String(cx) + " " + String(sy) + " " + String(-sy) + " " + String(cx) + " "  + String(tx) + " " + String(ty)+")");
+      tmp.replace("text-anchor=\"middle\"", "text-anchor=\"end\"");
+    }else {
+      tmp.replace("matrix()", "matrix(1 0 0 1 " + String(tx,0) + " " + String(ty,0)+")");
+    }
     toRet += tmp;
   }
   //(toRet)
@@ -380,8 +393,8 @@ line *line::addPoint(Tpoint *TpointList) {
     unsigned int addCount = ((point *)TpointList)->_count();
     //(addCount)
     unsigned int removelCount = 0;
-    if (thisCount + addCount > _MAX_POINTS_IN_A_LINE_) {
-      removelCount = thisCount + addCount - _MAX_POINTS_IN_A_LINE_;
+    if (thisCount + addCount > _MAXTPOINT_IN_A_OBJECT_) {
+      removelCount = thisCount + addCount - _MAXTPOINT_IN_A_OBJECT_;
     }
     while ( t && ((point *)t)->_next) {
       t = (Tpoint *)((point *)t)->_next;
@@ -467,15 +480,18 @@ size_t line::processNextPointResponse(String *content,int lineIndex,int lineNumb
 		//DEBUGOUT(lineNumbers)
 		//DEBUGOUT(lineIndex)
 		//DEBUGOUTH(this)
-		//DEBUGOUT(_lineNameY)
+		//LINE
 		size_t increase =	responseFirst(content, lineIndex,lineNumbers,parent);
+		//LINE
 		return increase;
 	}else if(halfPoint==1){
+		//LINE
 		//DEBUGOUT(lineNumbers)
 		//DEBUGOUT(lineIndex)
 		//DEBUGOUTH(this)
 		//DEBUGOUT(_lineNameY)
 		size_t increase =	responseSecond(content, lineIndex,lineNumbers,parent);
+		//LINE
 		return increase;
 	}else{
 		//DEBUGOUT(lineNumbers)
@@ -493,8 +509,15 @@ size_t line::responseFirst(String *content,int lineIndex, int lineNumbers, graph
   this->scan();
   Tpoint *remove;
   while (remove = outOfRange()) {
+	if(remove==_Thead){
+		_Thead->_text = "";
+		Tpoint *tmp=(Tpoint *) ((point*)_Thead)->_next;
+		delete(_Thead);
+		_Thead=tmp;
+	}
     if (_Thead) {
-      _Thead->removeTpoint(remove);
+		//LINE
+      int suc=_Thead->removeTpoint(remove);
     }
   }
   float xscale;
@@ -555,7 +578,7 @@ size_t line::responseSecond(String *content,int lineIndex, int lineNumbers, grap
 
   Tpoint *t = _Thead;
   if (t) {
-    _lineString += t->response((_maxY + _minY) / 2.0, offSetX, offSetY, xscale, yscale, _lineColor);
+    _lineString += t->response((_maxY + _minY) / 2.0, offSetX, offSetY, xscale, yscale, toReplaceColor);
   }
   String txs = textGeneral;
   if (_lineNameY.length()) {
@@ -789,10 +812,10 @@ uint32_t line::memory() {
   if (_Thead)  memo += _Thead->memory();
   return memo;
 }
-void line::addUserText(String userText, float x, float y) {
+void line::addUserText(String userText, float x, float y, uint8_t fontsize, float angle ) {
   if (userText.length()) {
 
-    Tpoint *t = new Tpoint(x, y, userText);
+    Tpoint *t = new Tpoint(x, y, userText,fontsize,angle);
     if (!t) log_e("out of memory");
     if (t) {
       //(userText)
@@ -968,13 +991,14 @@ size_t graph::processNextLineResponse(String *content,int lineIndex,float ypos){
 	//DEBUGOUT(L->getLineName())
 	while(lineNumber<=LCount){
 		do{
-			DEBUGOUT(L->getLineName())
+			//DEBUGOUT(L->getLineName())
 			increase=L->processNextPointResponse(content,lineNumber-1,LCount,this,halfPoint);
+			//LINE
 			halfPoint++;
 			if(increase) return increase;
 		}while(increase);
 		lineNumber++;
-		DEBUGOUT(lineNumber)
+		//DEBUGOUT(lineNumber)
 		halfPoint=0;
 		return increase;
 	}
@@ -1064,10 +1088,13 @@ size_t graph::responseFinish(String *content){
         String xgs = ""; int ypos = 6;
         for (float xpos = 0.0; xpos <= _sizeX; xpos += _sizeX / _numberOfSplitCellsX) {
           gs = "\n" + graphScal;
-          if (_tA != 0.0) {
+          if (_tA >= 0.0) {
             gs.replace("<!replace me>", String(cos(_tA)) + " " + String(sin(_tA)) + " " + String(-sin(_tA)) + String(cos(_tA)) + " "  + String(xpos) + " " + String(_sizeY + ypos));
             gs.replace("text-anchor=\"middle\"", "text-anchor=\"start\"");
-          } else {
+          } else if(_tA < 0.0){
+            gs.replace("<!replace me>", String(cos(_tA)) + " " + String(sin(_tA)) + " " + String(-sin(_tA)) + String(cos(_tA)) + " "  + String(xpos) + " " + String(_sizeY + ypos));
+            gs.replace("text-anchor=\"middle\"", "text-anchor=\"end\"");
+		  }else {
             gs.replace("<!replace me>", String("1 0 0 1 ") + String(xpos) + " " + String(_sizeY + ypos));
           }
           L->scan();
@@ -1199,8 +1226,8 @@ graph *graph::addPoint(Tpoint *TpointToAdd) {
     unsigned int addCount = ((point *)TpointToAdd)->_count();
     unsigned int removelCount = 0;
 
-    if (thisCount + addCount > _MAXTPOINT_IN_A_GRAPH_) {
-      removelCount = thisCount + addCount - _MAXTPOINT_IN_A_GRAPH_;
+    if (thisCount + addCount > _MAXTPOINT_IN_A_OBJECT_) {
+      removelCount = thisCount + addCount - _MAXTPOINT_IN_A_OBJECT_;
     }
     //(removelCount)
     while ( t && ((point *)t)->_next) {
@@ -1382,7 +1409,7 @@ void graph::XYvalueString(String xKey, callback_with_arg_float stdDispX, String 
 
 }
 void graph::setXvalueStringAngle(float angle) {
-  _tA = constrain(angle, 0.0, 180.0);
+  _tA = constrain(angle, -180.0, 180.0);
   _tA = _tA * PI / 180.;
 }
 uint32_t graph::memory() {
@@ -1396,9 +1423,9 @@ uint32_t graph::memory() {
   memo += _graphString.length() + _graphName.length() + _bgColor.length();
   return memo;
 }
-void graph::addUserText(String userText, float x, float y) {
+void graph::addUserText(String userText, float x, float y, uint8_t fontsize, float angle ) {
   if (userText.length()) {
-    Tpoint *t = new Tpoint(x, y, userText);
+    Tpoint *t = new Tpoint(x, y, userText,fontsize,angle);
     if (!t)  log_e("out of memory");
     if (t) {
       addPoint(t);
@@ -1529,8 +1556,8 @@ webGraph *webGraph::addPoint(Tpoint *TpointToAdd) {
     unsigned int thisCount = ((point *)t)->_count();
     unsigned int addCount = ((point *)TpointToAdd)->_count();
     unsigned int removelCount = 0;
-    if (thisCount + addCount > _MAXTPOINT_IN_A_GRAPH_) {
-      removelCount = thisCount + addCount - _MAXTPOINT_IN_A_GRAPH_;
+    if (thisCount + addCount > _MAXTPOINT_IN_A_OBJECT_) {
+      removelCount = thisCount + addCount - _MAXTPOINT_IN_A_OBJECT_;
     }
     while ( t && ((point *)t)->_next) {
       t = (Tpoint *)((point *)t)->_next;
@@ -1671,7 +1698,7 @@ size_t webGraph::processNextresponse(size_t index){
 			lineIndex=0;
 		}
 	}
-	LINE
+	//LINE
 	if(graphNumber==gCount+1){
 		graphNumber++;
 		increase=responseFinish();
@@ -1681,10 +1708,10 @@ size_t webGraph::processNextresponse(size_t index){
 	return 0;
 }
 size_t webGraph::manageWebString(uint8_t *content,size_t maxlen,size_t index){
-	LINE
+	//LINE
 	if(_busy==false){
 		_busy=true;
-		log_i("busy=%d",_busy);
+		log_v("busy=%d",_busy);
 	}
 	static size_t maxWebstringlength=0;
 	while(_webGraphString.length() < maxlen){
@@ -1694,12 +1721,12 @@ size_t webGraph::manageWebString(uint8_t *content,size_t maxlen,size_t index){
 	}
 	if(maxWebstringlength <_webGraphString.length()){
 		maxWebstringlength=_webGraphString.length();
-		log_i("\nmaxWebstringlength = %d",maxWebstringlength);
+		log_v("maxWebstringlength = %d",maxWebstringlength);
 	}
 	size_t sendSize=flushWebString(content, maxlen);
 	if(sendSize==0){
 		_busy=false;
-		log_i("busy=%d",_busy);
+		log_v("busy=%d",_busy);
 	}
 	return sendSize;
 }
@@ -1818,6 +1845,7 @@ void webGraph::XvalueString(String graphName , String lineName, callback_with_ar
   if (!G) {
     G = new graph();
     if (G) {
+	  addGraph(G);
       G->setName(graphName);
     }
   }
@@ -1834,6 +1862,7 @@ void webGraph::YvalueString(String graphName , String lineName, callback_with_ar
   if (!G) {
     G = new graph();
     if (G) {
+	  addGraph(G);
       G->setName(graphName);
     }
   }
@@ -1862,9 +1891,9 @@ boolean webGraph::setDirty(boolean dirty) {
   }
   return _dirty;
 }
-void webGraph::addUserText(String userText, float x, float y) {
+void webGraph::addUserText(String userText, float x, float y, uint8_t fontsize, float angle ) {
   if (userText.length()) {
-    Tpoint *t = new Tpoint(x, y, userText);
+    Tpoint *t = new Tpoint(x, y, userText,fontsize,angle);
     if (!t) log_e("out of memory");
     if (t) {
       addPoint(t);
@@ -1876,13 +1905,13 @@ boolean webGraph::addUserText(String objectName, String userText, float x, float
   line *L = 0;
   boolean result = false;
   if (objectName == _name) {
-    addUserText(userText, x, y);
+    addUserText(userText, x, y,fontsize,angle);
 
     result = true;
   }
   while (g) {
     if (objectName == g->getGraphName()) {
-      g->addUserText(userText, x, y);
+      g->addUserText(userText, x, y,fontsize,angle);
       result = true;
     }
     g = g->_next;
@@ -1894,7 +1923,7 @@ boolean webGraph::addUserText(String objectName, String userText, float x, float
     while (L) {
       if (objectName == L->getLineName()) {
 
-        L->addUserText(userText, x, y);
+        L->addUserText(userText, x, y,fontsize,angle);
         result = true;
       }
 

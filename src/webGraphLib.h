@@ -6,12 +6,12 @@
 const unsigned int _MAX_POINTS_IN_A_LINE_ = 240;
 const unsigned int _MAX_LINES_IN_A_GRAPH_ = 4;
 const unsigned int _MAXGRAPHS_IN_A_WEBGRAPH_ = 3;
-const unsigned int _MAXTPOINT_IN_A_GRAPH_ = 10;
+const unsigned int _MAXTPOINT_IN_A_OBJECT_ = 10;
 
 #define FLT_MAX 3.402823e+38
 
 #define WEBGRAPHLIB_VERSION_MAJOR 0
-#define WEBGRAPHLIB_VERSION_MINOR 83
+#define WEBGRAPHLIB_VERSION_MINOR 84
 
 
 class point;
@@ -45,9 +45,11 @@ typedef String (*callback_with_arg_float)(float);
 
 class Tpoint: public point {
   protected:
+  uint8_t _fontsize=6;
+  float _angle=0.0;
   public:
     String _text;
-    Tpoint(float x,float y,String text);
+    Tpoint(float x,float y,String text,uint8_t fontsize,float angle);
     ~Tpoint();
     int removeTpoint(Tpoint *t);
     void removeAllTpoints();
@@ -95,7 +97,7 @@ class line   {
     callback_with_arg_float userDefLineScaleY = 0;
     void setLineRangeXY(float minX, float maxX, float minY, float maxY);
     void resetLineRangeXY();
-    void setGrid(uint8_t cellsXSplit = 24, uint8_t cellsYSplit = 8);
+    void setGrid(uint8_t cellsXSplit = 24, uint8_t cellsYSplit = 2);
     void XvalueString(callback_with_arg_float myXFunction);
     void YvalueString(callback_with_arg_float myYFunction);
      size_t processNextPointResponse(String *content,int lineIndex,int lineNumbers,graph *parent,int halfPoint);
@@ -131,7 +133,7 @@ class line   {
     String _generateGrid(int lineIndex, int lineNumbers, graph *parent);
     void setXvalueStringAngle(float angle);
     uint32_t memory();
-    void addUserText(String userText,float x,float y);
+    void addUserText(String userText,float x,float y,uint8_t fontsize =6,float angle =0);
 };
 
 class graph  {
@@ -204,7 +206,7 @@ class graph  {
     void XYvalueString(String xKey, callback_with_arg_float stdDispX, String yKeys, callback_with_arg_float stdDispTmp);
     void setXvalueStringAngle(float angle);
     uint32_t memory();
-    void addUserText(String userText,float x,float y);
+    void addUserText(String userText,float x,float y,uint8_t fontsize =6,float angle =0);
 };
 
 class webGraph {
@@ -253,7 +255,7 @@ class webGraph {
     void XvalueString(String graphName, String lineName, callback_with_arg_float myXfunc);
     void YvalueString(String graphName, String lineName, callback_with_arg_float myYfunc);
     uint32_t memory();
-    void addUserText(String userText,float x,float y);
+    void addUserText(String userText,float x,float y,uint8_t fontsize =6,float angle =0);
 	boolean addUserText(String objectName,String userText,float x,float y,uint8_t fontsize =6,float angle =0);
 	volatile boolean busy(){ return _busy;}
 };
