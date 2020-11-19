@@ -854,7 +854,7 @@ line *graph::searchLineName(String nameTofind) {
   }
   return 0;
 }
-#if ARDUINOJSON_VERSION_C == 5
+#if ARDUINOJSON_VERSION_MAJOR == 5
 #if ARDUINOJSON_VERSION_MINOR >=11
 graph *graph::importJson(String json, String xKey, String yKeys[_MAX_LINES_IN_A_GRAPH_], uint8_t actualKeys) {
   DynamicJsonBuffer jsonBuffer;
@@ -902,6 +902,7 @@ graph *graph::importJson(String json, String xKey, String yKeys[_MAX_LINES_IN_A_
 #pragma message("please use ARDUINOJSON 5.11-5.13 or 6.9 above")
 #endif
 #endif
+
 #if ARDUINOJSON_VERSION_MAJOR >= 6
 #if ARDUINOJSON_VERSION_MINOR >= 9
 graph *graph::importJson(String json, String xKey, String yKeys[_MAX_LINES_IN_A_GRAPH_], uint8_t actualKeys) {
